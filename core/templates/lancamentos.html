@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Lançamentos{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h4 class="mb-4">🧾 Lançamentos</h4>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Categoria</th>
+                <th>Data</th>
+                <th class="text-end">Valor</th>
+                <th class="text-end">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in lancamentos %}
+            <tr>
+                <td>
+                    {% if l.tipo == 'E' %}
+                        <span class="badge bg-success">Entrada</span>
+                    {% else %}
+                        <span class="badge bg-danger">Saída</span>
+                    {% endif %}
+                </td>
+                <td>{{ l.categoria.nome }}</td>
+                <td>{{ l.data|date:"d/m/Y" }}</td>
+                <td class="text-end">R$ {{ l.valor }}</td>
+                <td class="text-end">
+                    <a href="{% url 'editar_lancamento' l.id %}" class="btn btn-sm btn-outline-primary">✏️</a>
+                    <a href="{% url 'excluir_lancamento' l.id %}"
+                       class="btn btn-sm btn-outline-danger"
+                       onclick="return confirm('Excluir?')">🗑</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center text-muted">
+                    Nenhum lançamento encontrado
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

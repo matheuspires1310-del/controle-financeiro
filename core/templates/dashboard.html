@@ -1,0 +1,410 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid dashboard-root">
+
+    <!-- ===== TOPO: CARDS ===== -->
+    <div class="row g-4 mb-3">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-success h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Entradas</h6>
+                    <h3 class="text-success">R$ {{ entradas|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-danger h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Saídas</h6>
+                    <h3 class="text-danger">R$ {{ saidas|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-primary h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Saldo</h6>
+                    <h3>R$ {{ saldo|floatformat:2 }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HUMOR FINANCEIRO -->
+    <div class="card fade-in mb-4">
+        <div class="card-body">
+            <div class="section-title">
+                {{ humor.emoji }} Humor Financeiro
+            </div>
+            <div class="humor {{ humor.classe }} mt-2">
+                {{ humor.texto }}
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MEIO ===== -->
+    <div class="row g-4 mb-3">
+
+        <!-- ESQUERDA -->
+        <div class="col-md-8">
+
+            <!-- Diagnóstico -->
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h6 class="mb-3">🧠 Diagnóstico Financeiro</h6>
+                    {% for d in diagnostico %}
+                        <div class="alert alert-{{ d.tipo }} py-2 mb-2">
+                            {{ d.mensagem }}
+                        </div>
+                    {% empty %}
+                        <p class="text-muted">Dados insuficientes.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Personalidade -->
+            {% if personalidade %}
+            <div class="card shadow-sm mb-3 border-info">
+                <div class="card-body">
+                    <h6>🧠 Personalidade Financeira</h6>
+                    <h5 class="text-info">{{ personalidade }}</h5>
+                    <p class="text-muted mb-0">{{ descricao_personalidade }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Ação Prioritária -->
+            {% if acao_principal %}
+            <div class="card acao-principal mb-3">
+                <div class="card-body">
+                    <h5>🎯 Ação Prioritária do Mês</h5>
+                    <p class="fs-5 mb-2">{{ acao_principal.titulo }}</p>
+                    <p class="text-muted">{{ acao_principal.descricao }}</p>
+                    <strong class="text-success">
+                        + R$ {{ acao_principal.impacto }}
+                    </strong>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Impacto Anual -->
+            {% if impacto_anual %}
+            <div class="card shadow-sm mb-3 border-success">
+                <div class="card-body">
+                    <h6>📆 Impacto Anual</h6>
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <small class="text-muted">Atual</small>
+                            <h5 class="text-danger">
+                                R$ {{ impacto_anual.gasto_atual|floatformat:2 }}
+                            </h5>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Com ajuste</small>
+                            <h5 class="text-success">
+                                R$ {{ impacto_anual.gasto_ajustado|floatformat:2 }}
+                            </h5>
+                        </div>
+                        <div class="col-md-4">
+                            <small class="text-muted">Economia</small>
+                            <h4 class="fw-bold text-success">
+                                R$ {{ impacto_anual.economia_anual|floatformat:2 }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% if simulacao %}
+            <div class="alert alert-info mt-3">
+            <strong>Sugestão automática:</strong><br>
+            Se você reduzir <strong>{{ simulacao.percentual }}%</strong> dos gastos em
+            <strong>{{ simulacao.categoria }}</strong>, poderá economizar cerca de
+            <strong>R$ {{ simulacao.economia|floatformat:2 }}</strong> por ano.
+            </div>
+            {% endif %}
+                    {% if impacto_anual %}
+        <div class="card mt-3 border-info">
+        <div class="card-body">
+            <h6 class="mb-2">
+            💡 Leitura Inteligente dos Seus Gastos
+            </h6>
+
+            <p class="mb-2">
+            Analisando o conjunto dos seus gastos mensais, o sistema identificou
+            oportunidades de otimização sem comprometer seu estilo de vida.
+            </p>
+
+            <ul class="mb-3">
+            <li>
+                Uma redução média e distribuída de <strong>5% a 10%</strong> entre
+                suas principais categorias pode gerar uma economia anual estimada de
+                <strong>R$ {{ impacto_anual.economia_anual|floatformat:2 }}</strong>.
+            </li>
+            <li>
+                Pequenos ajustes recorrentes tendem a ter mais impacto do que cortes
+                bruscos em apenas um ponto.
+            </li>
+            <li>
+                O equilíbrio entre consumo e planejamento é o fator que mais influencia
+                seu resultado financeiro no longo prazo.
+            </li>
+            </ul>
+
+            <p class="text-muted mb-0">
+            📊 Esta projeção considera seus hábitos atuais e simula melhorias
+            graduais e sustentáveis ao longo do ano.
+            </p>
+        </div>
+        </div>
+        {% endif %}
+
+
+            <!-- Gastos Invisíveis -->
+            {% if tem_gastos_invisiveis %}
+            <div class="card shadow-sm mb-3 border-dark">
+                <div class="card-body">
+                    <h6>🕵️ Gastos Invisíveis</h6>
+                    <p>
+                        Até R$ {{ limite_invisivel }} →
+                        <strong>R$ {{ gastos_invisiveis }}</strong>
+                    </p>
+                    <small class="text-muted">
+                        {{ percentual_invisivel|floatformat:1 }}% dos gastos
+                    </small>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- DIREITA -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6>Novo Lançamento</h6>
+
+                    {% if sucesso %}
+                        <div class="alert alert-success py-2">
+                            Lançamento salvo com sucesso
+                        </div>
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.tipo }}
+                        {{ form.valor }}
+                        {{ form.data }}
+                        <div class="mb-1">
+                        {{ form.categoria }}
+                    </div>
+
+                    <small>
+                        <a href="javascript:void(0)" onclick="abrirCategoria()">
+                            ➕ Nova categoria
+                        </a>
+                    </small>
+
+                        {{ form.descricao }}
+
+                        <div class="form-check my-2">
+                            {{ form.recorrente }}
+                            <label class="form-check-label">Recorrente</label>
+                        </div>
+
+                        <button class="btn btn-success w-100">
+                            💾 Salvar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ===== BASE ===== -->
+    <div class="row g-4">
+
+        <!-- Gráfico -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6>Gastos por Categoria</h6>
+                    {% if tem_grafico %}
+                        <canvas id="graficoCategoria"></canvas>
+                    {% else %}
+                        <p class="text-muted text-center">Sem dados</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabela -->
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <h6>Últimos Lançamentos</h6>
+
+                    <table class="table table-sm table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Categoria</th>
+                                <th class="text-end">Valor</th>
+                                <th class="text-end">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for l in lancamentos %}
+                            <tr>
+                                <td>
+                                    {% if l.tipo == 'E' %}
+                                        <span class="badge bg-success">E</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">S</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span
+                                      data-bs-toggle="tooltip"
+                                      title="{{ l.descricao|default:'Sem observação' }}">
+                                        {{ l.categoria.nome }}
+                                    </span>
+                                </td>
+                                <td class="text-end">R$ {{ l.valor }}</td>
+                                <td class="text-end">
+                                    <a href="{% url 'editar_lancamento' l.id %}"
+                                       class="btn btn-sm btn-outline-primary">✏️</a>
+                                    <form method="post"
+                                          action="{% url 'excluir_lancamento' l.id %}"
+                                          class="d-inline">
+                                        {% csrf_token %}
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            🗑
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">
+                                    Sem lançamentos
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% if tem_grafico %}
+<script>
+new Chart(document.getElementById('graficoCategoria'), {
+    type: 'pie',
+    data: {
+        labels: {{ labels_categoria|safe }},
+        datasets: [{
+            data: {{ valores_categoria|safe }},
+            backgroundColor: ['#dc3545', '#0d6efd', '#198754', '#ffc107']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: { position: 'bottom' }
+        }
+    }
+});
+</script>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  .forEach(el => new bootstrap.Tooltip(el));
+</script>
+
+
+<div class="modal fade" id="modalCategoria" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Nova Categoria</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <input type="text"
+               id="novaCategoria"
+               class="form-control"
+               placeholder="Ex: Academia">
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button class="btn btn-success" onclick="salvarCategoria()">Salvar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function abrirCategoria() {
+    new bootstrap.Modal(
+        document.getElementById('modalCategoria')
+    ).show();
+}
+
+function salvarCategoria() {
+    const nome = document.getElementById('novaCategoria').value.trim();
+
+    if (!nome) {
+        alert('Digite um nome para a categoria');
+        return;
+    }
+
+    fetch("{% url 'criar_categoria' %}", {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: `nome=${encodeURIComponent(nome)}`
+    })
+    .then(r => {
+        if (!r.ok) throw new Error('Erro ao criar categoria');
+        return r.json();
+    })
+    .then(data => {
+        const select = document.getElementById('id_categoria');
+
+        const option = document.createElement('option');
+        option.value = data.id;
+        option.text = data.nome;
+        option.selected = true;
+
+        select.appendChild(option);
+
+        bootstrap.Modal
+            .getInstance(document.getElementById('modalCategoria'))
+            .hide();
+
+        document.getElementById('novaCategoria').value = '';
+    })
+    .catch(err => alert(err.message));
+}
+</script>
+
+
+{% endblock %}

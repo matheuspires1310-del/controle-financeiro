@@ -1,0 +1,128 @@
+/* =========================
+   DASHBOARD FINANCEIRO
+   ========================= */
+
+/* Evita scroll desnecessário */
+body {
+    overflow-x: hidden;
+}
+
+/* Cards do topo */
+.card h3 {
+    font-weight: 600;
+}
+
+/* Ajusta espaçamento geral */
+.container-fluid {
+    padding-top: 15px;
+}
+
+/* Mantém blocos alinhados */
+.card {
+    border-radius: 10px;
+}
+
+/* Gráfico com altura controlada */
+#graficoCategoria {
+    max-height: 260px !important;
+}
+
+/* Tabela compacta */
+.table td, .table th {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+}
+
+/* Diagnóstico */
+.alert {
+    font-size: 0.95rem;
+}
+
+/* Formulário mais compacto */
+form .mb-2 {
+    margin-bottom: 8px !important;
+}
+
+/* Botão mais forte visualmente */
+button.btn-success {
+    font-weight: 600;
+}
+
+/* Cards iguais em altura */
+.card.h-100 {
+    height: 100%;
+}
+
+/* Responsivo: empilha corretamente */
+@media (max-width: 768px) {
+    #graficoCategoria {
+        max-height: 220px;
+    }
+}
+/* Cards principais */
+.card {
+    border-radius: 14px;
+    transition: all 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* Cards KPI */
+.kpi-card h3 {
+    font-weight: 700;
+}
+
+/* Seções inteligentes */
+.section-title {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Humor financeiro */
+.humor {
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.humor.good {
+    background: #e6f7f0;
+    color: #198754;
+}
+
+.humor.warn {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.humor.bad {
+    background: #f8d7da;
+    color: #842029;
+}
+
+/* Gastos invisíveis alerta */
+.alert-invisivel {
+    border-left: 5px solid #ffc107;
+    background: #fff9e6;
+}
+
+/* Animação leve */
+.fade-in {
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

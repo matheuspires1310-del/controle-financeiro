@@ -1,0 +1,127 @@
+/* =========================
+   ESCOPO DO DASHBOARD
+   ========================= */
+
+.dashboard-root {
+    padding-top: 10px;
+}
+
+/* CARDS PRINCIPAIS */
+.dashboard-root .card {
+    border-radius: 16px;
+    transition: all 0.25s ease;
+}
+
+.dashboard-root .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+/* KPIs */
+.dashboard-root h3 {
+    font-weight: 700;
+}
+
+/* HUMOR FINANCEIRO */
+.dashboard-root .humor {
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.dashboard-root .humor.success {
+    background: #e6f7f0;
+    color: #198754;
+}
+
+.dashboard-root .humor.warning {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.dashboard-root .humor.danger {
+    background: #fdecea;
+    color: #dc3545;
+}
+
+/* BLOCOS INTELIGENTES */
+.dashboard-root .card.border-warning,
+.dashboard-root .card.border-info,
+.dashboard-root .card.border-dark {
+    border-left-width: 6px !important;
+}
+
+/* FORM FIXO (DIFERENCIAL) */
+.dashboard-root .col-md-4 .card {
+    position: sticky;
+    top: 80px;
+}
+
+/* TABELA MAIS “APP” */
+.dashboard-root .table-hover tbody tr:hover {
+    background-color: rgba(13,110,253,0.05);
+}
+
+/* GRÁFICO CONTROLADO */
+.dashboard-root #graficoCategoria {
+    max-height: 220px !important;
+}
+/* ==========================
+   BLOCO AÇÃO PRINCIPAL
+   ========================== */
+
+.acao-principal {
+    background: linear-gradient(135deg, #0d6efd, #20c997);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+}
+
+.acao-principal h5 {
+    font-weight: 700;
+}
+
+.acao-principal .impacto {
+    background: rgba(255,255,255,0.15);
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+}
+/* ==========================
+   IMPACTO ANUAL
+   ========================== */
+
+.impacto-anual {
+    border-left: 6px solid #198754;
+    border-radius: 18px;
+}
+
+.impacto-anual h5 {
+    font-weight: 700;
+}
+
+.impacto-anual .ganho-anual {
+    background: #e6fff1;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    margin-top: 12px;
+    color: #0c5631;
+    font-weight: 600;
+}
+.card {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(0,0,0,.12);
+}
+
+.impacto-anual {
+    background: linear-gradient(135deg, #e8fff1, #f1eeee);
+}
+
+.acao-principal {
+    background: linear-gradient(135deg, #acb917, #b9bb9b);
+}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Relatório Mensal{% endblock %}
+
+{% block content %}
+
+<h4 class="mb-3">📊 Relatório Mensal</h4>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-3">
+        <select name="mes" class="form-select">
+            {% for m in "123456789101112"|make_list %}
+            <option value="{{ forloop.counter }}"
+                {% if mes == forloop.counter %}selected{% endif %}>
+                {{ forloop.counter }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <input type="number" name="ano" value="{{ ano }}" class="form-control">
+    </div>
+
+    <div class="col-md-2">
+        <button class="btn btn-primary w-100">Filtrar</button>
+    </div>
+</form>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-success">
+            <div class="card-body">
+                <small>Entradas</small>
+                <h4 class="text-success">R$ {{ entradas }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-danger">
+            <div class="card-body">
+                <small>Saídas</small>
+                <h4 class="text-danger">R$ {{ saidas }}</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-primary">
+            <div class="card-body">
+                <small>Saldo</small>
+                <h4>R$ {{ saldo }}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h6>Gastos por Categoria</h6>
+
+        <table class="table table-sm mt-3">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th class="text-end">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in por_categoria %}
+                <tr>
+                    <td>{{ c.categoria__nome }}</td>
+                    <td class="text-end">R$ {{ c.total }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center text-muted">
+                        Nenhum gasto neste período
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
