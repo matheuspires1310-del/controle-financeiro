@@ -1,3 +1,1 @@
-web:
-gunicorn
-financeiro.wsgi
+web: gunicorn financeiro.wsgi
