@@ -7,6 +7,28 @@
 {% block content %}
 
 <div class="dashboard-shell">
+    
+<!-- =====================
+     KPI CARDS
+===================== -->
+<section class="dashboard-kpis">
+
+  <div class="kpi-card kpi-green">
+    <span>Entradas</span>
+    <strong>{{ entradas|moeda_br }}</strong>
+  </div>
+
+  <div class="kpi-card kpi-red">
+    <span>Saídas</span>
+    <strong>{{ saidas|moeda_br }}</strong>
+  </div>
+
+  <div class="kpi-card kpi-blue">
+    <span>Saldo</span>
+    <strong>{{ saldo|moeda_br }}</strong>
+  </div>
+
+</section>
 
   <!-- =====================
        HERO · LANÇAMENTO
