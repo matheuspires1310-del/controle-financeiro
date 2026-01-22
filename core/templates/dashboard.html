@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Dashboard{% endblock %}
+{% load formatacao %}
 
 {% block content %}
 
@@ -28,7 +29,7 @@
             <div class="card shadow-sm border-success h-100">
                 <div class="card-body">
                     <h6 class="text-muted">Entradas</h6>
-                    <h3 class="text-success">R$ {{ entradas|floatformat:2 }}</h3>
+                    <h3 class="text-success">{{ entradas|moeda_br }}</h3>
                 </div>
             </div>
         </div>
@@ -37,7 +38,7 @@
             <div class="card shadow-sm border-danger h-100">
                 <div class="card-body">
                     <h6 class="text-muted">Saídas</h6>
-                    <h3 class="text-danger">R$ {{ saidas|floatformat:2 }}</h3>
+                    <h3 class="text-danger">{{ saidas|moeda_br }}</h3>
                 </div>
             </div>
         </div>
@@ -46,7 +47,7 @@
             <div class="card shadow-sm border-primary h-100">
                 <div class="card-body">
                     <h6 class="text-muted">Saldo</h6>
-                    <h3>R$ {{ saldo|floatformat:2 }}</h3>
+                    <h3>{{ saldo|moeda_br }}</h3>
                 </div>
             </div>
         </div>
