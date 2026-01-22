@@ -206,17 +206,14 @@
 </div>
 
 {% if tem_grafico %}
-</script>
-
-{% block extra_js %}
 <script>
   window.labelsCategoria = {{ labels_categoria|safe }};
   window.valoresCategoria = {{ valores_categoria|safe }};
 </script>
+{% endif %}
+
+{% block extra_js %}
 <script src="{% static 'core/js/dashboard.js' %}"></script>
-
-
-
-
 {% endblock %}
+
 
