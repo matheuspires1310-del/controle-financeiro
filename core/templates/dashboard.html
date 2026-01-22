@@ -5,10 +5,6 @@
 {% block content %}
 
 <div class="container-fluid dashboard-a">
-<div class="card kpi-card kpi-entrada">
-<div class="card kpi-card kpi-saida">
-<div class="card kpi-card kpi-saldo">
-
 
   <!-- INPUT PRINCIPAL -->
   <div class="card mb-4">
@@ -33,7 +29,38 @@
       </form>
     </div>
   </div>
+  
+<!-- KPI CARDS -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-4">
+      <div class="card kpi-card kpi-entrada">
+        <div class="card-body">
+          <span>Entradas</span>
+          <h3>{{ entradas|moeda_br }}</h3>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-md-4">
+      <div class="card kpi-card kpi-saida">
+        <div class="card-body">
+          <span>Saídas</span>
+          <h3>{{ saidas|moeda_br }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card kpi-card kpi-saldo">
+        <div class="card-body">
+          <span>Saldo</span>
+          <h3>{{ saldo|moeda_br }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
   <!-- RESUMO -->
   <div class="row g-3 mb-4">
     <div class="col-md-4">
