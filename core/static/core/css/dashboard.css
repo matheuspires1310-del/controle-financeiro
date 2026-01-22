@@ -1,74 +1,100 @@
-/* =========================
-   BASE (LAYOUT GERAL)
-========================= */
+/* ==================================================
+   DASHBOARD FINANCEIRO – CSS FINAL
+   ================================================== */
 
-body {
-    background-color: #0f172a;
-    color: #0f172a;
+/* ---------- VARIÁVEIS ---------- */
+:root {
+    --bg-page: #0f172a;
+    --bg-card: #ffffff;
+    --bg-soft: #f1f5f9;
+
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+
+    --green: #16a34a;
+    --red: #dc2626;
+    --blue: #2563eb;
+
+    --radius: 16px;
+    --shadow: 0 12px 32px rgba(15, 23, 42, 0.15);
 }
 
-/* Navbar */
+/* ---------- BASE ---------- */
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+.container-fluid {
+    padding: 24px;
+}
+
+/* ---------- NAVBAR ---------- */
 .navbar {
     background: linear-gradient(90deg, #020617, #020617);
 }
 
-/* =========================
-   CARDS (CLAROS)
-========================= */
-
+/* ---------- CARD BASE ---------- */
 .card {
-    background-color: #ffffff;
-    color: #0f172a;
-    border-radius: 14px;
+    background-color: var(--bg-card);
     border: none;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    transition: all 0.25s ease;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
-.card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+/* ---------- INPUT INTELIGENTE ---------- */
+.input-group {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 10px;
+    box-shadow: var(--shadow);
 }
-
-/* =========================
-   KPI (TOPO)
-========================= */
-
-.kpi-card h6 {
-    font-size: 0.9rem;
-    color: #64748b;
-}
-
-.kpi-card h3 {
-    font-weight: 700;
-}
-
-/* Cores */
-.text-success { color: #16a34a !important; }
-.text-danger  { color: #dc2626 !important; }
-.text-primary { color: #2563eb !important; }
-
-/* =========================
-   INPUT INTELIGENTE
-========================= */
 
 .input-group input {
-    border-radius: 12px 0 0 12px;
-    border: 1px solid #cbd5f5;
+    border: none;
+    font-size: 1.05rem;
+}
+
+.input-group input:focus {
+    box-shadow: none;
 }
 
 .input-group button {
-    border-radius: 0 12px 12px 0;
+    border-radius: 12px;
     font-weight: 600;
+    padding: 0 22px;
 }
 
-/* =========================
-   HUMOR / ALERTAS
-========================= */
+/* ---------- KPI CARDS ---------- */
+.kpi-card {
+    height: 100%;
+    padding: 18px 20px;
+}
 
+.kpi-card h6 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.kpi-card h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin: 0;
+}
+
+/* Cores KPI */
+.kpi-entrada h3 { color: var(--green); }
+.kpi-saida h3   { color: var(--red); }
+.kpi-saldo h3   { color: var(--blue); }
+
+/* ---------- HUMOR ---------- */
 .humor {
-    padding: 14px;
-    border-radius: 12px;
+    padding: 16px 18px;
+    border-radius: 14px;
     font-weight: 500;
 }
 
@@ -87,34 +113,43 @@ body {
     color: #991b1b;
 }
 
-/* =========================
-   GRÁFICO
-========================= */
+/* ---------- SEÇÕES ---------- */
+.section-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
 
+/* ---------- GRÁFICO ---------- */
 #graficoCategoria {
     max-height: 300px;
 }
 
-/* =========================
-   TABELA
-========================= */
-
+/* ---------- TABELA ---------- */
 .table {
-    font-size: 0.9rem;
+    font-size: 0.92rem;
 }
 
-.table th {
-    color: #475569;
+.table thead th {
+    color: var(--text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.table td {
-    color: #0f172a;
+.table tbody td {
+    vertical-align: middle;
 }
 
-/* =========================
-   RESPONSIVO
-========================= */
+/* ---------- BOTÕES ---------- */
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+}
 
+/* ---------- RESPONSIVO ---------- */
 @media (max-width: 768px) {
     .kpi-card h3 {
         font-size: 1.4rem;
