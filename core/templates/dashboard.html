@@ -207,7 +207,6 @@
 
 {% if tem_grafico %}
 </script>
-{% endif %}
 
 {% block extra_js %}
 <script>
@@ -215,5 +214,9 @@
   window.valoresCategoria = {{ valores_categoria|safe }};
 </script>
 <script src="{% static 'core/js/dashboard.js' %}"></script>
+
+
+
+
 {% endblock %}
 
