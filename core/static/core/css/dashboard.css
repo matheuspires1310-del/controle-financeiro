@@ -104,9 +104,11 @@ body {
     color: var(--text-soft);
 }
 
-/* ---------- PERFIL FINANCEIRO ---------- */
+/* ---------- PERFIL FINANCEIRO (AJUSTADO) ---------- */
+
+/* Títulos */
 .card h6 {
-  color: var(--text-muted);
+  color: #cbd5f5; /* mais claro */
   font-weight: 600;
   margin-bottom: 6px;
 }
@@ -114,14 +116,22 @@ body {
 .card h4,
 .card h5,
 .card h3 {
-  color: var(--text-main);
+  color: #f8fafc; /* branco suave */
   font-weight: 700;
 }
 
+/* Texto explicativo */
 .card p,
 .card li {
-  color: var(--text-muted);
+  color: #cbd5e1; /* cinza claro legível */
   font-size: .95rem;
+  line-height: 1.6;
+}
+
+/* Texto secundário */
+.card small,
+.card span {
+  color: #94a3b8;
 }
 
 /* ---------- LISTAS ---------- */
@@ -130,95 +140,41 @@ body {
 }
 
 .card ul li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 /* ---------- DESTAQUES ---------- */
-.text-success { color: var(--green) !important; }
-.text-danger  { color: var(--red) !important; }
-.text-info    { color: var(--blue) !important; }
+.text-success { color: #4ade80 !important; }
+.text-danger  { color: #f87171 !important; }
+.text-info    { color: #60a5fa !important; }
 
-/* ---------- BADGES ---------- */
-.badge {
-  font-weight: 600;
-  padding: 6px 10px;
-}
-
-/* ---------- INPUT INTELIGENTE ---------- */
-.input-group {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  padding: 10px;
-}
-
-.input-group input {
-  background: transparent;
-  border: none;
-  color: var(--text-main);
-}
-
-.input-group input::placeholder {
-  color: var(--text-soft);
-}
-
-.input-group input:focus {
-  box-shadow: none;
-}
-/* ---------------------
-   KPI
---------------------- */
-.dashboard-kpis {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-}
-
-.kpi-card {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 20px 22px;
-    box-shadow: var(--shadow-soft);
-}
-
-.kpi-card span {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    color: var(--text-soft);
-}
-
-.kpi-card strong {
-    display: block;
-    margin-top: 6px;
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.kpi-green strong { color: var(--green); }
-.kpi-red strong   { color: var(--red); }
-.kpi-blue strong  { color: var(--blue); }
-
-/* ---------------------
-   INSIGHT
---------------------- */
+/* ---------- INSIGHT ---------- */
 .insight-card {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, var(--bg-card), var(--bg-card-soft));
-    border-radius: var(--radius);
-    padding: 18px 22px;
-    box-shadow: var(--shadow-soft);
-}
-
-.insight-emoji {
-    font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.9),
+    rgba(15, 23, 42, 0.9)
+  );
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  box-shadow: var(--shadow-soft);
 }
 
 .insight-text {
-    font-weight: 500;
-    color: var(--text-main);
+  font-weight: 500;
+  color: #e5e7eb;
 }
+
+/* ---------- PROJEÇÃO ANUAL ---------- */
+.card .valor-destaque {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
+
 
 /* ---------------------
    GRÁFICO
