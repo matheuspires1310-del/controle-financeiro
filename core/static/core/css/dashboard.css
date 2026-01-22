@@ -1,280 +1,220 @@
-/* =====================================================
-   DASHBOARD DARK · SAAS / FINTECH
-   ===================================================== */
+/* =========================================================
+   DASHBOARD DARK SAAS – FINAL
+   Estilo: Stripe / Notion / Linear
+   ========================================================= */
 
-/* ---------------------
-   DESIGN TOKENS
---------------------- */
+/* -------------------------
+   VARIÁVEIS
+------------------------- */
 :root {
-    --bg-page: #0b0f19;
-    --bg-card: #111827;
-    --bg-card-soft: #0f172a;
+  --bg-page: #0b1020;
+  --bg-card: #11172a;
+  --bg-card-soft: #151c33;
 
-    --border-soft: #1f2937;
+  --border-soft: rgba(255,255,255,0.06);
 
-    --text-main: #e5e7eb;
-    --text-muted: #9ca3af;
-    --text-soft: #6b7280;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-soft: #64748b;
 
-    --green: #22c55e;
-    --red: #ef4444;
-    --blue: #38bdf8;
+  --green: #22c55e;
+  --red: #ef4444;
+  --blue: #3b82f6;
+  --yellow: #facc15;
 
-    --radius: 14px;
-    --shadow-soft: 0 12px 32px rgba(0,0,0,.35);
+  --radius: 14px;
+  --shadow: 0 8px 28px rgba(0,0,0,.45);
 }
 
-/* ---------------------
+/* -------------------------
    BASE
---------------------- */
+------------------------- */
 body {
-    background-color: var(--bg-page);
-    color: var(--text-main);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(
+    1200px 600px at top center,
+    #10162f 0%,
+    #0b1020 55%
+  );
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.dashboard-shell {
-    max-width: 1180px;
-    margin: 0 auto;
-    padding: 32px 24px 60px;
-    display: grid;
-    gap: 28px;
+.container-fluid {
+  padding: 28px;
 }
 
-/* ---------------------
-   HERO · QUICK ENTRY
---------------------- */
-.dashboard-hero {
-    background: linear-gradient(180deg, var(--bg-card-soft), var(--bg-card));
-    border-radius: var(--radius);
-    padding: 26px 28px;
-    box-shadow: var(--shadow-soft);
+/* -------------------------
+   NAVBAR
+------------------------- */
+.navbar {
+  background: #0b1020;
+  border-bottom: 1px solid var(--border-soft);
 }
 
-.hero-label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 10px;
-    color: var(--text-muted);
+/* -------------------------
+   CARD BASE
+------------------------- */
+.card {
+  background: linear-gradient(
+    180deg,
+    var(--bg-card),
+    var(--bg-card-soft)
+  );
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow);
 }
 
-.hero-input {
-    display: flex;
-    gap: 12px;
+/* -------------------------
+   INPUT PRINCIPAL
+------------------------- */
+.quick-form .input-group {
+  background: #0e1430;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-soft);
+  padding: 8px;
 }
 
-.hero-input input {
-    flex: 1;
-    background: #020617;
-    border: 1px solid var(--border-soft);
-    border-radius: 12px;
-    padding: 14px 16px;
-    font-size: 1rem;
-    color: var(--text-main);
+.quick-form input {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 1.05rem;
 }
 
-.hero-input input::placeholder {
-    color: var(--text-soft);
+.quick-form input::placeholder {
+  color: var(--text-soft);
 }
 
-.hero-input input:focus {
-    outline: none;
-    border-color: var(--blue);
-    box-shadow: 0 0 0 2px rgba(56,189,248,.25);
+.quick-form input:focus {
+  outline: none;
+  box-shadow: none;
 }
 
-.hero-input button {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
-    border: none;
-    border-radius: 12px;
-    padding: 0 22px;
-    font-weight: 600;
-    color: white;
-    cursor: pointer;
-}
-
-.hero-input button:hover {
-    filter: brightness(1.1);
-}
-
-.hero-hint {
-    display: block;
-    margin-top: 8px;
-    font-size: 0.85rem;
-    color: var(--text-soft);
-}
-
-/* ---------- PERFIL FINANCEIRO (AJUSTADO) ---------- */
-
-/* Títulos */
-.card h6 {
-  color: #cbd5f5; /* mais claro */
+.quick-form button {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  border: none;
   font-weight: 600;
-  margin-bottom: 6px;
+  padding: 0 22px;
+  border-radius: 10px;
 }
 
-.card h4,
-.card h5,
-.card h3 {
-  color: #f8fafc; /* branco suave */
-  font-weight: 700;
+/* -------------------------
+   KPI CARDS
+------------------------- */
+.kpi-card {
+  padding: 20px 22px;
 }
 
-/* Texto explicativo */
-.card p,
-.card li {
-  color: #cbd5e1; /* cinza claro legível */
-  font-size: .95rem;
-  line-height: 1.6;
+.kpi-card span {
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-/* Texto secundário */
-.card small,
-.card span {
-  color: #94a3b8;
+.kpi-card h3 {
+  margin-top: 6px;
+  font-size: 1.9rem;
+  font-weight: 800;
 }
 
-/* ---------- LISTAS ---------- */
-.card ul {
+.kpi-entrada h3 { color: var(--green); }
+.kpi-saida h3   { color: var(--red); }
+.kpi-saldo h3   { color: var(--blue); }
+
+/* -------------------------
+   INSIGHT PRINCIPAL
+------------------------- */
+.insight {
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-weight: 600;
+}
+
+.insight span {
+  font-size: 1.4rem;
+}
+
+/* -------------------------
+   PERFIL FINANCEIRO
+------------------------- */
+.perfil-card h5 {
+  font-weight: 800;
+  margin-top: 6px;
+}
+
+.perfil-card p {
+  color: var(--text-muted);
+}
+
+/* -------------------------
+   LEITURA INTELIGENTE
+------------------------- */
+.leitura-card ul {
+  margin-top: 10px;
   padding-left: 18px;
 }
 
-.card ul li {
+.leitura-card li {
   margin-bottom: 8px;
+  color: var(--text-muted);
 }
 
-/* ---------- DESTAQUES ---------- */
-.text-success { color: #4ade80 !important; }
-.text-danger  { color: #f87171 !important; }
-.text-info    { color: #60a5fa !important; }
-
-/* ---------- INSIGHT ---------- */
-.insight-card {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: linear-gradient(
-    135deg,
-    rgba(30, 41, 59, 0.9),
-    rgba(15, 23, 42, 0.9)
-  );
-  border-radius: var(--radius);
-  padding: 18px 22px;
-  box-shadow: var(--shadow-soft);
+/* -------------------------
+   PROJEÇÃO ANUAL
+------------------------- */
+.projecao-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  text-align: center;
 }
 
-.insight-text {
-  font-weight: 500;
-  color: #e5e7eb;
+.projecao-grid small {
+  color: var(--text-muted);
 }
 
-/* ---------- PROJEÇÃO ANUAL ---------- */
-.card .valor-destaque {
-  font-size: 1.6rem;
+.projecao-grid strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 1.4rem;
   font-weight: 800;
-  letter-spacing: .02em;
 }
 
-
-/* ---------------------
+/* -------------------------
    GRÁFICO
---------------------- */
-.dashboard-chart {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 22px 24px 26px;
-    box-shadow: var(--shadow-soft);
+------------------------- */
+canvas {
+  max-height: 320px;
 }
 
-.dashboard-chart h3 {
-    margin-bottom: 14px;
-    font-size: 1rem;
-    color: var(--text-muted);
+/* -------------------------
+   TABELA
+------------------------- */
+.table {
+  color: var(--text-main);
 }
 
-.chart-wrapper {
-    height: 300px;
+.table td {
+  border-color: var(--border-soft);
 }
 
-/* ---------------------
-   LISTA DE LANÇAMENTOS
---------------------- */
-.dashboard-list {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    box-shadow: var(--shadow-soft);
+.table-hover tbody tr:hover {
+  background: rgba(255,255,255,0.03);
 }
 
-.dashboard-list h3 {
-    margin-bottom: 14px;
-    font-size: 1rem;
-    color: var(--text-muted);
-}
-
-.lancamentos-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.lancamentos-table tr {
-    border-bottom: 1px solid var(--border-soft);
-}
-
-.lancamentos-table td {
-    padding: 10px 6px;
-    font-size: 0.95rem;
-}
-
-.lancamentos-table td.valor {
-    text-align: right;
-    font-weight: 600;
-}
-
-.lancamentos-table .empty {
-    text-align: center;
-    color: var(--text-soft);
-    padding: 20px;
-}
-
-/* ---------------------
-   TAGS
---------------------- */
-.tag {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 999px;
-    font-weight: 700;
-    font-size: 0.9rem;
-}
-
-.tag.entrada {
-    background: rgba(34,197,94,.15);
-    color: var(--green);
-}
-
-.tag.saida {
-    background: rgba(239,68,68,.15);
-    color: var(--red);
-}
-
-/* ---------------------
+/* -------------------------
    RESPONSIVO
---------------------- */
-@media (max-width: 900px) {
-    .dashboard-kpis {
-        grid-template-columns: 1fr;
-    }
+------------------------- */
+@media (max-width: 768px) {
+  .kpi-card h3 {
+    font-size: 1.5rem;
+  }
 
-    .hero-input {
-        flex-direction: column;
-    }
-
-    .hero-input button {
-        width: 100%;
-        height: 44px;
-    }
+  .projecao-grid {
+    grid-template-columns: 1fr;
+  }
 }

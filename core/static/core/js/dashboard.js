@@ -1,34 +1,35 @@
-// ==============================
-// DASHBOARD JS – FINANCEIRO
-// ==============================
-
 document.addEventListener("DOMContentLoaded", () => {
+  const ctx = document.getElementById("graficoLinha");
+  if (!ctx) return;
 
-  // ----------------------------
-  // AUTOFOCUS NO INPUT
-  // ----------------------------
-  const quickInput = document.querySelector(".hero-input input");
-  if (quickInput) {
-    quickInput.focus();
-  }
-
-  // ----------------------------
-  // SUBMIT COM ENTER
-  // ----------------------------
-  const quickForm = document.querySelector(".quick-form");
-  if (quickForm && quickInput) {
-    quickForm.addEventListener("submit", () => {
-      quickInput.blur();
-    });
-  }
-
-  // ----------------------------
-  // FEEDBACK VISUAL AO ENVIAR
-  // ----------------------------
-  if (quickForm) {
-    quickForm.addEventListener("submit", () => {
-      document.body.classList.add("dashboard-loading");
-    });
-  }
-
+  new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: window.labelsCategoria,
+      datasets: [{
+        data: window.valoresCategoria,
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59,130,246,.15)",
+        tension: 0.45,
+        fill: true,
+        pointRadius: 4,
+        pointBackgroundColor: "#3b82f6"
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        x: {
+          ticks: { color: "#94a3b8" },
+          grid: { color: "rgba(255,255,255,.05)" }
+        },
+        y: {
+          ticks: { color: "#94a3b8" },
+          grid: { color: "rgba(255,255,255,.08)" }
+        }
+      }
+    }
+  });
 });

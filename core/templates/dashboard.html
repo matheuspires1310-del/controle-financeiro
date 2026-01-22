@@ -206,41 +206,14 @@
 </div>
 
 {% if tem_grafico %}
-<script>
-new Chart(document.getElementById("graficoLinha"), {
-  type: "line",
-  data: {
-    labels: {{ labels_categoria|safe }},
-    datasets: [{
-      data: {{ valores_categoria|safe }},
-      borderColor: "#38bdf8",
-      backgroundColor: "rgba(56,189,248,0.15)",
-      tension: 0.35,
-      fill: true,
-      pointRadius: 4,
-      pointBackgroundColor: "#38bdf8"
-    }]
-  },
-  options: {
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      x: {
-        ticks: { color: "#9ca3af" },
-        grid: { display: false }
-      },
-      y: {
-        ticks: { color: "#9ca3af" },
-        grid: { color: "rgba(255,255,255,0.06)" }
-      }
-    }
-  }
-});
 </script>
 {% endif %}
 
-{% load static %}
+{% block extra_js %}
+<script>
+  window.labelsCategoria = {{ labels_categoria|safe }};
+  window.valoresCategoria = {{ valores_categoria|safe }};
+</script>
 <script src="{% static 'core/js/dashboard.js' %}"></script>
-
 {% endblock %}
+
