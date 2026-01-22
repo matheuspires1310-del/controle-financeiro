@@ -107,3 +107,38 @@ canvas {
         text-align: center;
     }
 }
+
+/* ===== CORREÇÃO KPI ===== */
+
+.card h6 {
+    color: #94a3b8 !important;
+}
+
+.card h3 {
+    color: #f8fafc !important;
+    font-size: 1.8rem;
+}
+
+.card .text-success {
+    color: #22c55e !important;
+}
+
+.card .text-danger {
+    color: #ef4444 !important;
+}
+
+.card .text-primary {
+    color: #38bdf8 !important;
+}
+
+/* Cards grandes (gráfico / blocos longos) */
+.card canvas,
+.card .card-body {
+    background-color: transparent;
+}
+
+.input-group {
+    background: #020617;
+    border-radius: 12px;
+    padding: 6px;
+}

@@ -118,21 +118,32 @@ new Chart(document.getElementById('graficoCategoria'), {
             pointBackgroundColor: '#38bdf8'
         }]
     },
+    
     options: {
-        plugins: {
-            legend: { display: false }
-        },
-        scales: {
-            x: {
-                ticks: { color: '#94a3b8' },
-                grid: { display: false }
+    plugins: {
+        legend: {
+            display: false
+        }
+    },
+    scales: {
+        x: {
+            ticks: {
+                color: '#e5e7eb'
             },
-            y: {
-                ticks: { color: '#94a3b8' },
-                grid: { color: '#1e293b' }
+            grid: {
+                color: 'rgba(255,255,255,0.05)'
+            }
+        },
+        y: {
+            ticks: {
+                color: '#e5e7eb'
+            },
+            grid: {
+                color: 'rgba(255,255,255,0.08)'
             }
         }
     }
+}
 });
 </script>
 
