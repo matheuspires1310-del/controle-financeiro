@@ -1,102 +1,96 @@
-/* ============================
-   DASHBOARD A — CLEAN DARK UI
-============================ */
+/* =========================
+   DARK CLEAN – DASHBOARD
+========================= */
 
-/* RESET LEVE */
 body {
-    background: #0b1220;
+    background-color: #0b1220;
     color: #e5e7eb;
-    overflow-x: hidden;
 }
 
-/* CONTAINER */
-.dashboard-a {
-    padding: 24px;
-}
-
-/* CARDS BASE */
-.card {
+/* Navbar */
+.navbar {
     background: #020617;
+    border-bottom: 1px solid #1e293b;
+}
+
+/* Cards */
+.card {
+    background-color: #111827;
     border: 1px solid #1e293b;
     border-radius: 14px;
-    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    box-shadow: 0 4px 14px rgba(0,0,0,.35);
 }
 
-/* INPUT PRINCIPAL */
-.quick-form .form-control {
-    background: #020617;
+/* Cards KPI */
+.card h6 {
+    color: #94a3b8;
+    font-size: 0.85rem;
+}
+
+.card h3 {
+    font-weight: 700;
+}
+
+/* Entradas / Saídas / Saldo */
+.text-success { color: #22c55e !important; }
+.text-danger { color: #ef4444 !important; }
+.text-primary { color: #38bdf8 !important; }
+
+/* Input rápido */
+.form-control {
+    background-color: #020617;
+    color: #e5e7eb;
     border: 1px solid #334155;
-    color: #f8fafc;
-    height: 56px;
-    font-size: 1.05rem;
 }
 
-.quick-form .form-control::placeholder {
+.form-control:focus {
+    background-color: #020617;
+    color: #fff;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56,189,248,.15);
+}
+
+.form-control::placeholder {
     color: #64748b;
 }
 
-.quick-form .btn {
-    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+/* Botões */
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
     border: none;
     font-weight: 600;
 }
 
-/* KPI CARDS */
-.resumo-card {
-    padding: 18px;
-    text-align: left;
+.btn-success:hover {
+    filter: brightness(1.1);
 }
 
-.resumo-card small {
-    color: #94a3b8;
-    font-size: 0.8rem;
+/* Alertas */
+.alert {
+    background-color: #020617;
+    border: 1px solid #334155;
+    color: #e5e7eb;
 }
 
-.resumo-card h2 {
-    margin-top: 4px;
-    font-weight: 700;
-}
-
-.resumo-card.success h2 {
-    color: #22c55e;
-}
-
-.resumo-card.danger h2 {
-    color: #ef4444;
-}
-
-.resumo-card.primary h2 {
-    color: #38bdf8;
-}
-
-/* INSIGHT */
-.insight {
-    background: linear-gradient(135deg, #020617, #020617);
-    border-left: 4px solid #38bdf8;
-}
-
-.insight strong {
-    font-size: 1.05rem;
-}
-
-/* GRÁFICO */
+/* Gráfico */
 canvas {
-    max-height: 260px;
+    background: transparent !important;
 }
 
-/* TABELA */
+/* Tabela */
 .table {
     color: #e5e7eb;
 }
 
-.table tr:hover {
-    background: rgba(255,255,255,.04);
+.table thead th {
+    color: #94a3b8;
+    border-color: #1e293b;
 }
 
-.table td {
-    border-color: #1e293b;
-    font-size: 0.9rem;
+.table tbody tr:hover {
+    background-color: #020617;
 }
+
 
 /* BADGES */
 .badge {

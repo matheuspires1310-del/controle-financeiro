@@ -103,22 +103,39 @@
 
 {% if tem_grafico %}
 <script>
-new Chart(document.getElementById('graficoLinha'), {
-  type: 'line',
-  data: {
-    labels: {{ labels_categoria|safe }},
-    datasets: [{
-      data: {{ valores_categoria|safe }},
-      borderWidth: 2,
-      tension: 0.4,
-      fill: false
-    }]
-  },
-  options: {
-    plugins: { legend: { display: false } }
-  }
+new Chart(document.getElementById('graficoCategoria'), {
+    type: 'line',
+    data: {
+        labels: {{ labels_categoria|safe }},
+        datasets: [{
+            label: 'Gastos',
+            data: {{ valores_categoria|safe }},
+            borderColor: '#38bdf8',
+            backgroundColor: 'rgba(56,189,248,.15)',
+            tension: 0.4,
+            fill: true,
+            pointRadius: 4,
+            pointBackgroundColor: '#38bdf8'
+        }]
+    },
+    options: {
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            x: {
+                ticks: { color: '#94a3b8' },
+                grid: { display: false }
+            },
+            y: {
+                ticks: { color: '#94a3b8' },
+                grid: { color: '#1e293b' }
+            }
+        }
+    }
 });
 </script>
+
 {% endif %}
 
 {% endblock %}
