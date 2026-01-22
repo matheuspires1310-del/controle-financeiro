@@ -218,3 +218,65 @@ canvas {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* =====================
+   KPI CARDS — FIX FINAL
+===================== */
+
+.dashboard-kpis {
+  max-width: 1100px;
+  margin: 40px auto 32px auto;
+  padding: 0 20px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Card base */
+.kpi-card {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.02)
+  );
+  border-radius: 18px;
+  padding: 22px 24px;
+
+  box-shadow:
+    0 10px 30px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(6px);
+}
+
+/* Label */
+.kpi-card span {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+/* Valor */
+.kpi-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: #f9fafb;
+}
+
+/* Destaques laterais */
+.kpi-green { border-left: 4px solid #22c55e; }
+.kpi-red   { border-left: 4px solid #ef4444; }
+.kpi-blue  { border-left: 4px solid #3b82f6; }
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .dashboard-kpis {
+    grid-template-columns: 1fr;
+  }
+}
