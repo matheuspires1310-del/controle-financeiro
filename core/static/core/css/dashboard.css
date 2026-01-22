@@ -1,144 +1,122 @@
 /* =========================
-   DARK CLEAN – DASHBOARD
+   BASE (LAYOUT GERAL)
 ========================= */
 
 body {
-    background-color: #0b1220;
-    color: #e5e7eb;
+    background-color: #0f172a;
+    color: #0f172a;
 }
 
 /* Navbar */
 .navbar {
-    background: #020617;
-    border-bottom: 1px solid #1e293b;
+    background: linear-gradient(90deg, #020617, #020617);
 }
 
-/* Cards */
+/* =========================
+   CARDS (CLAROS)
+========================= */
+
 .card {
-    background-color: #111827;
-    border: 1px solid #1e293b;
+    background-color: #ffffff;
+    color: #0f172a;
     border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,.35);
+    border: none;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    transition: all 0.25s ease;
 }
 
-/* Cards KPI */
-.card h6 {
-    color: #94a3b8;
-    font-size: 0.85rem;
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
 }
 
-.card h3 {
-    font-weight: 700;
-}
+/* =========================
+   KPI (TOPO)
+========================= */
 
-/* Entradas / Saídas / Saldo */
-.text-success { color: #22c55e !important; }
-.text-danger { color: #ef4444 !important; }
-.text-primary { color: #38bdf8 !important; }
-
-/* Input rápido */
-.form-control {
-    background-color: #020617;
-    color: #e5e7eb;
-    border: 1px solid #334155;
-}
-
-.form-control:focus {
-    background-color: #020617;
-    color: #fff;
-    border-color: #38bdf8;
-    box-shadow: 0 0 0 2px rgba(56,189,248,.15);
-}
-
-.form-control::placeholder {
+.kpi-card h6 {
+    font-size: 0.9rem;
     color: #64748b;
 }
 
-/* Botões */
-.btn-success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    border: none;
+.kpi-card h3 {
+    font-weight: 700;
+}
+
+/* Cores */
+.text-success { color: #16a34a !important; }
+.text-danger  { color: #dc2626 !important; }
+.text-primary { color: #2563eb !important; }
+
+/* =========================
+   INPUT INTELIGENTE
+========================= */
+
+.input-group input {
+    border-radius: 12px 0 0 12px;
+    border: 1px solid #cbd5f5;
+}
+
+.input-group button {
+    border-radius: 0 12px 12px 0;
     font-weight: 600;
 }
 
-.btn-success:hover {
-    filter: brightness(1.1);
-}
+/* =========================
+   HUMOR / ALERTAS
+========================= */
 
-/* Alertas */
-.alert {
-    background-color: #020617;
-    border: 1px solid #334155;
-    color: #e5e7eb;
-}
-
-/* Gráfico */
-canvas {
-    background: transparent !important;
-}
-
-/* Tabela */
-.table {
-    color: #e5e7eb;
-}
-
-.table thead th {
-    color: #94a3b8;
-    border-color: #1e293b;
-}
-
-.table tbody tr:hover {
-    background-color: #020617;
-}
-
-
-/* BADGES */
-.badge {
-    font-size: 0.75rem;
-}
-
-/* RESPONSIVO */
-@media (max-width: 768px) {
-    .dashboard-a {
-        padding: 16px;
-    }
-
-    .resumo-card {
-        text-align: center;
-    }
-}
-
-/* ===== CORREÇÃO KPI ===== */
-
-.card h6 {
-    color: #94a3b8 !important;
-}
-
-.card h3 {
-    color: #f8fafc !important;
-    font-size: 1.8rem;
-}
-
-.card .text-success {
-    color: #22c55e !important;
-}
-
-.card .text-danger {
-    color: #ef4444 !important;
-}
-
-.card .text-primary {
-    color: #38bdf8 !important;
-}
-
-/* Cards grandes (gráfico / blocos longos) */
-.card canvas,
-.card .card-body {
-    background-color: transparent;
-}
-
-.input-group {
-    background: #020617;
+.humor {
+    padding: 14px;
     border-radius: 12px;
-    padding: 6px;
+    font-weight: 500;
+}
+
+.humor.good {
+    background: #ecfdf5;
+    color: #166534;
+}
+
+.humor.warn {
+    background: #fff7ed;
+    color: #9a3412;
+}
+
+.humor.bad {
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+/* =========================
+   GRÁFICO
+========================= */
+
+#graficoCategoria {
+    max-height: 300px;
+}
+
+/* =========================
+   TABELA
+========================= */
+
+.table {
+    font-size: 0.9rem;
+}
+
+.table th {
+    color: #475569;
+}
+
+.table td {
+    color: #0f172a;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 768px) {
+    .kpi-card h3 {
+        font-size: 1.4rem;
+    }
 }
