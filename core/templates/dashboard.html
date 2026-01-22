@@ -209,10 +209,31 @@
                         <div class="alert alert-success py-2">
                             Lançamento salvo com sucesso
                         </div>
-                    {% endif %}
-
+                    {% endif %}                    
                     <form method="post">
                         {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label">
+                                💬 Lançamento rápido (automático)
+                            </label>
+                            <input
+                                type="text"
+                                name="quick_entry"
+                                class="form-control"
+                                placeholder="Ex: Paguei 120 mercado ontem no crédito"
+                            >
+                            <small class="text-muted">
+                                O sistema entende sozinho valor, tipo, data e categoria.
+                            </small>
+                        </div>
+
+                        <hr>
+
+                        {{ form.tipo }}
+                        {{ form.valor }}
+                        {{ form.data }}
+                        {{ form.categoria }}
+                        {{ form.descricao }}
                         {{ form.tipo }}
                         {{ form.valor }}
                         {{ form.data }}
