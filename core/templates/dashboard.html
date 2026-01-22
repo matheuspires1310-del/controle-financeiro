@@ -62,6 +62,109 @@
       <span class="insight-text">{{ humor.texto }}</span>
     </div>
   </section>
+<!-- ================= INSIGHTS FINANCEIROS ================= -->
+<div class="row g-4 mb-4">
+
+  <!-- HUMOR FINANCEIRO -->
+  {% if humor %}
+  <div class="col-12">
+    <div class="card insight-card {{ humor.classe }}">
+      <div class="card-body d-flex align-items-center gap-3">
+        <div class="insight-emoji">{{ humor.emoji }}</div>
+        <div class="insight-text">
+          <strong>{{ humor.texto }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- AÇÃO PRIORITÁRIA -->
+  {% if acao_principal %}
+  <div class="col-md-6">
+    <div class="card insight-card highlight">
+      <div class="card-body">
+        <h6 class="mb-2">🎯 Ação prioritária do mês</h6>
+        <p class="mb-1 fw-semibold">{{ acao_principal.titulo }}</p>
+        <p class="text-muted mb-2">{{ acao_principal.descricao }}</p>
+        <span class="impact">
+          Impacto estimado: +R$ {{ acao_principal.impacto }}
+        </span>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- PERSONALIDADE FINANCEIRA -->
+  {% if personalidade %}
+  <div class="col-md-6">
+    <div class="card insight-card soft">
+      <div class="card-body">
+        <h6 class="mb-2">🧠 Seu perfil financeiro</h6>
+        <h5 class="mb-1">{{ personalidade }}</h5>
+        <p class="text-muted mb-0">{{ descricao_personalidade }}</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- LEITURA INTELIGENTE -->
+  {% if impacto_anual %}
+  <div class="col-12">
+    <div class="card insight-card info">
+      <div class="card-body">
+        <h6 class="mb-2">💡 Leitura inteligente dos gastos</h6>
+        <p class="mb-2">
+          Analisando seus hábitos atuais, pequenos ajustes distribuídos podem gerar
+          uma economia anual relevante sem comprometer seu estilo de vida.
+        </p>
+        <ul class="mb-0">
+          <li>
+            Economia anual estimada:
+            <strong>R$ {{ impacto_anual.economia_anual|floatformat:2 }}</strong>
+          </li>
+          <li>
+            Reduções graduais funcionam melhor que cortes bruscos.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- IMPACTO ANUAL -->
+  {% if impacto_anual %}
+  <div class="col-12">
+    <div class="card insight-card success">
+      <div class="card-body">
+        <h6 class="mb-3">📆 Projeção anual</h6>
+        <div class="row text-center">
+          <div class="col-md-4">
+            <small class="text-muted">Gasto atual</small>
+            <h5 class="text-danger">
+              R$ {{ impacto_anual.gasto_atual|floatformat:2 }}
+            </h5>
+          </div>
+          <div class="col-md-4">
+            <small class="text-muted">Com ajustes</small>
+            <h5 class="text-success">
+              R$ {{ impacto_anual.gasto_ajustado|floatformat:2 }}
+            </h5>
+          </div>
+          <div class="col-md-4">
+            <small class="text-muted">Economia</small>
+            <h4 class="fw-bold text-success">
+              R$ {{ impacto_anual.economia_anual|floatformat:2 }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+<!-- ======================================================== -->
 
   <!-- =====================
        GRÁFICO
