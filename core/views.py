@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
-from datetime import date
+from datetime import date, timedelta
 from decimal import Decimal
 from .models import Lancamento
 from .forms import LancamentoForm
