@@ -4,6 +4,23 @@
 {% block content %}
 
 <div class="container-fluid dashboard-root">
+    <div class="card mb-3">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <input
+        type="text"
+        name="quick_entry"
+        class="form-control"
+        placeholder="Ex: entrada 1500 salario | saida 45 uber | 120 mercado"
+        autofocus
+      >
+      <small class="text-muted">
+        Digite como você fala. O sistema entende automaticamente.
+      </small>
+    </form>
+  </div>
+</div>
 
     <!-- ===== TOPO: CARDS ===== -->
     <div class="row g-4 mb-3">

@@ -9,6 +9,8 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Categoria
 from django.http import JsonResponse
+import re
+
 
 @login_required
 def dashboard(request):
@@ -17,6 +19,60 @@ def dashboard(request):
     # FORMULÁRIO
     # --------------------
     if request.method == 'POST':
+        quick = request.POST.get("quick_entry")
+        if quick:
+            texto = quick.lower().strip()
+
+            # 1️⃣ Tipo
+            tipo = 'S'
+            if texto.startswith("entrada") or texto.startswith("e "):
+                tipo = 'E'
+            elif texto.startswith("saida") or texto.startswith("s "):
+                tipo = 'S'
+
+            # 2️⃣ Valor
+            valor_match = re.search(r'(\d+[.,]?\d*)', texto)
+            if not valor_match:
+                return redirect("/")
+
+            valor = Decimal(valor_match.group(1).replace(",", "."))
+
+            # 3️⃣ Categoria (palavra restante)
+            palavras = texto.split()
+            categoria_nome = None
+
+            for p in palavras:
+                if p.isalpha() and p not in ["entrada", "saida"]:
+                    categoria_nome = p
+                    break
+
+            if not categoria_nome:
+                categoria_nome = "Outros"
+
+            categoria, _ = Categoria.objects.get_or_create(
+                user=request.user,
+                nome=categoria_nome.capitalize()
+            )
+
+            # 4️⃣ Data
+            data = date.today()
+            if "ontem" in texto:
+                data = date.today() - timedelta(days=1)
+
+            # 5️⃣ Criar lançamento
+            Lancamento.objects.create(
+                user=request.user,
+                tipo=tipo,
+                valor=valor,
+                categoria=categoria,
+                data=data,
+                descricao="Lançamento rápido"
+            )
+
+            return redirect("/")
+            
+
+
         form = LancamentoForm(request.POST)
         if form.is_valid():
             lancamento = form.save(commit=False)
