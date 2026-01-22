@@ -1,58 +1,107 @@
-/* ==================================================
-   DASHBOARD DARK – SAAS / FINTECH
-================================================== */
+/* =====================================================
+   DASHBOARD DARK · SAAS / FINTECH
+   ===================================================== */
 
-/* ---------- VARIÁVEIS ---------- */
+/* ---------------------
+   DESIGN TOKENS
+--------------------- */
 :root {
-  --bg-page: #0b1220;
-  --bg-card: #111827;
-  --bg-card-soft: #0f172a;
+    --bg-page: #0b0f19;
+    --bg-card: #111827;
+    --bg-card-soft: #0f172a;
 
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
-  --text-soft: #6b7280;
+    --border-soft: #1f2937;
 
-  --green: #22c55e;
-  --red: #ef4444;
-  --blue: #38bdf8;
-  --yellow: #facc15;
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+    --text-soft: #6b7280;
 
-  --radius: 16px;
-  --shadow: 0 20px 40px rgba(0,0,0,.45);
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #38bdf8;
+
+    --radius: 14px;
+    --shadow-soft: 0 12px 32px rgba(0,0,0,.35);
 }
 
-/* ---------- BASE ---------- */
+/* ---------------------
+   BASE
+--------------------- */
 body {
-  background: var(--bg-page);
-  color: var(--text-main);
-  overflow-x: hidden;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.container-fluid {
-  padding: 28px;
+.dashboard-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    display: grid;
+    gap: 28px;
 }
 
-/* ---------- CARD BASE ---------- */
-.card {
-  background: linear-gradient(
-    180deg,
-    var(--bg-card),
-    var(--bg-card-soft)
-  );
-  border: 1px solid rgba(255,255,255,.04);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+/* ---------------------
+   HERO · QUICK ENTRY
+--------------------- */
+.dashboard-hero {
+    background: linear-gradient(180deg, var(--bg-card-soft), var(--bg-card));
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-soft);
 }
 
-/* ---------- INSIGHTS / HUMOR ---------- */
-.insight,
-.humor,
-.resumo-card {
-  color: var(--text-main);
+.hero-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-muted);
 }
 
-.insight strong {
-  font-size: 1.05rem;
+.hero-input {
+    display: flex;
+    gap: 12px;
+}
+
+.hero-input input {
+    flex: 1;
+    background: #020617;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.hero-input input::placeholder {
+    color: var(--text-soft);
+}
+
+.hero-input input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(56,189,248,.25);
+}
+
+.hero-input button {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border: none;
+    border-radius: 12px;
+    padding: 0 22px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.hero-input button:hover {
+    filter: brightness(1.1);
+}
+
+.hero-hint {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
 }
 
 /* ---------- PERFIL FINANCEIRO ---------- */
@@ -115,22 +164,161 @@ body {
 .input-group input:focus {
   box-shadow: none;
 }
-
-/* ---------- BOTÃO ---------- */
-.btn-primary {
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  border: none;
-  font-weight: 600;
+/* ---------------------
+   KPI
+--------------------- */
+.dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-/* ---------- GRÁFICO ---------- */
-canvas {
-  background: transparent;
+.kpi-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-soft);
 }
 
-/* ---------- RESPONSIVO ---------- */
-@media (max-width: 768px) {
-  .container-fluid {
-    padding: 18px;
-  }
+.kpi-card span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-soft);
+}
+
+.kpi-card strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.kpi-green strong { color: var(--green); }
+.kpi-red strong   { color: var(--red); }
+.kpi-blue strong  { color: var(--blue); }
+
+/* ---------------------
+   INSIGHT
+--------------------- */
+.insight-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-card-soft));
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-soft);
+}
+
+.insight-emoji {
+    font-size: 1.6rem;
+}
+
+.insight-text {
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* ---------------------
+   GRÁFICO
+--------------------- */
+.dashboard-chart {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 22px 24px 26px;
+    box-shadow: var(--shadow-soft);
+}
+
+.dashboard-chart h3 {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.chart-wrapper {
+    height: 300px;
+}
+
+/* ---------------------
+   LISTA DE LANÇAMENTOS
+--------------------- */
+.dashboard-list {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-soft);
+}
+
+.dashboard-list h3 {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.lancamentos-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lancamentos-table tr {
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.lancamentos-table td {
+    padding: 10px 6px;
+    font-size: 0.95rem;
+}
+
+.lancamentos-table td.valor {
+    text-align: right;
+    font-weight: 600;
+}
+
+.lancamentos-table .empty {
+    text-align: center;
+    color: var(--text-soft);
+    padding: 20px;
+}
+
+/* ---------------------
+   TAGS
+--------------------- */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.tag.entrada {
+    background: rgba(34,197,94,.15);
+    color: var(--green);
+}
+
+.tag.saida {
+    background: rgba(239,68,68,.15);
+    color: var(--red);
+}
+
+/* ---------------------
+   RESPONSIVO
+--------------------- */
+@media (max-width: 900px) {
+    .dashboard-kpis {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-input {
+        flex-direction: column;
+    }
+
+    .hero-input button {
+        width: 100%;
+        height: 44px;
+    }
 }
