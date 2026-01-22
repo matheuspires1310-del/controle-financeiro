@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="dashboard-shell">
-    
+
 <!-- =====================
      KPI CARDS
 ===================== -->
@@ -29,33 +29,6 @@
   </div>
 
 </section>
-
-  <!-- =====================
-       HERO · LANÇAMENTO
-  ====================== -->
-  <section class="dashboard-hero">
-    <form method="post" class="quick-form">
-      {% csrf_token %}
-
-      <label class="hero-label">
-        💬 O que aconteceu com seu dinheiro hoje?
-      </label>
-
-      <div class="hero-input">
-        <input
-          type="text"
-          name="quick_entry"
-          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
-          autofocus
-        >
-        <button type="submit">Enter ↵</button>
-      </div>
-
-      <small class="hero-hint">
-        Digite como você fala. O sistema entende sozinho.
-      </small>
-    </form>
-  </section>
 
   <!-- =====================
        KPI · RESUMO
