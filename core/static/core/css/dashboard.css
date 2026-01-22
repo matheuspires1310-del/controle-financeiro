@@ -1,157 +1,154 @@
-/* ==================================================
-   DASHBOARD FINANCEIRO – CSS FINAL
-   ================================================== */
+{% extends "base.html" %}
+{% load formatacao %}
+{% block title %}Dashboard{% endblock %}
 
-/* ---------- VARIÁVEIS ---------- */
-:root {
-    --bg-page: #0f172a;
-    --bg-card: #ffffff;
-    --bg-soft: #f1f5f9;
+{% block content %}
 
-    --text-main: #0f172a;
-    --text-muted: #64748b;
+<div class="dashboard-shell">
 
-    --green: #16a34a;
-    --red: #dc2626;
-    --blue: #2563eb;
+  <!-- =====================
+       HERO · LANÇAMENTO
+  ====================== -->
+  <section class="dashboard-hero">
+    <form method="post" class="quick-form">
+      {% csrf_token %}
 
-    --radius: 16px;
-    --shadow: 0 12px 32px rgba(15, 23, 42, 0.15);
-}
+      <label class="hero-label">
+        💬 O que aconteceu com seu dinheiro hoje?
+      </label>
 
-/* ---------- BASE ---------- */
-body {
-    background-color: var(--bg-page);
-    color: var(--text-main);
-    overflow-x: hidden;
-}
+      <div class="hero-input">
+        <input
+          type="text"
+          name="quick_entry"
+          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
+          autofocus
+        >
+        <button type="submit">Enter ↵</button>
+      </div>
 
-.container-fluid {
-    padding: 24px;
-}
+      <small class="hero-hint">
+        Digite como você fala. O sistema entende sozinho.
+      </small>
+    </form>
+  </section>
 
-/* ---------- NAVBAR ---------- */
-.navbar {
-    background: linear-gradient(90deg, #020617, #020617);
-}
+  <!-- =====================
+       KPI · RESUMO
+  ====================== -->
+  <section class="dashboard-kpis">
+    <div class="kpi-card kpi-green">
+      <span>Entradas</span>
+      <strong>{{ entradas|moeda_br }}</strong>
+    </div>
 
-/* ---------- CARD BASE ---------- */
-.card {
-    background-color: var(--bg-card);
-    border: none;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
+    <div class="kpi-card kpi-red">
+      <span>Saídas</span>
+      <strong>{{ saidas|moeda_br }}</strong>
+    </div>
 
-/* ---------- INPUT INTELIGENTE ---------- */
-.input-group {
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    padding: 10px;
-    box-shadow: var(--shadow);
-}
+    <div class="kpi-card kpi-blue">
+      <span>Saldo atual</span>
+      <strong>{{ saldo|moeda_br }}</strong>
+    </div>
+  </section>
 
-.input-group input {
-    border: none;
-    font-size: 1.05rem;
-}
+  <!-- =====================
+       INSIGHT PRINCIPAL
+  ====================== -->
+  <section class="dashboard-insight">
+    <div class="insight-card">
+      <span class="insight-emoji">{{ humor.emoji }}</span>
+      <span class="insight-text">{{ humor.texto }}</span>
+    </div>
+  </section>
 
-.input-group input:focus {
-    box-shadow: none;
-}
+  <!-- =====================
+       GRÁFICO
+  ====================== -->
+  {% if tem_grafico %}
+  <section class="dashboard-chart">
+    <header>
+      <h3>📈 Evolução do mês</h3>
+    </header>
+    <div class="chart-wrapper">
+      <canvas id="graficoLinha"></canvas>
+    </div>
+  </section>
+  {% endif %}
 
-.input-group button {
-    border-radius: 12px;
-    font-weight: 600;
-    padding: 0 22px;
-}
+  <!-- =====================
+       ÚLTIMOS LANÇAMENTOS
+  ====================== -->
+  <section class="dashboard-list">
+    <header>
+      <h3>Últimos lançamentos</h3>
+    </header>
 
-/* ---------- KPI CARDS ---------- */
-.kpi-card {
-    height: 100%;
-    padding: 18px 20px;
-}
+    <table class="lancamentos-table">
+      <tbody>
+        {% for l in lancamentos|slice:":5" %}
+        <tr>
+          <td class="tipo">
+            {% if l.tipo == "E" %}
+              <span class="tag entrada">+</span>
+            {% else %}
+              <span class="tag saida">−</span>
+            {% endif %}
+          </td>
+          <td class="categoria">
+            {{ l.categoria.nome }}
+          </td>
+          <td class="valor">
+            {{ l.valor|moeda_br }}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="empty">
+            Nenhum lançamento ainda
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
 
-.kpi-card h6 {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    color: var(--text-muted);
-    margin-bottom: 6px;
-}
+</div>
 
-.kpi-card h3 {
-    font-size: 1.8rem;
-    font-weight: 800;
-    margin: 0;
-}
-
-/* Cores KPI */
-.kpi-entrada h3 { color: var(--green); }
-.kpi-saida h3   { color: var(--red); }
-.kpi-saldo h3   { color: var(--blue); }
-
-/* ---------- HUMOR ---------- */
-.humor {
-    padding: 16px 18px;
-    border-radius: 14px;
-    font-weight: 500;
-}
-
-.humor.good {
-    background: #ecfdf5;
-    color: #166534;
-}
-
-.humor.warn {
-    background: #fff7ed;
-    color: #9a3412;
-}
-
-.humor.bad {
-    background: #fef2f2;
-    color: #991b1b;
-}
-
-/* ---------- SEÇÕES ---------- */
-.section-title {
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* ---------- GRÁFICO ---------- */
-#graficoCategoria {
-    max-height: 300px;
-}
-
-/* ---------- TABELA ---------- */
-.table {
-    font-size: 0.92rem;
-}
-
-.table thead th {
-    color: var(--text-muted);
-    font-weight: 600;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.table tbody td {
-    vertical-align: middle;
-}
-
-/* ---------- BOTÕES ---------- */
-.btn-success {
-    background: linear-gradient(135deg, #22c55e, #16a34a);
-    border: none;
-}
-
-/* ---------- RESPONSIVO ---------- */
-@media (max-width: 768px) {
-    .kpi-card h3 {
-        font-size: 1.4rem;
+{% if tem_grafico %}
+<script>
+new Chart(document.getElementById("graficoLinha"), {
+  type: "line",
+  data: {
+    labels: {{ labels_categoria|safe }},
+    datasets: [{
+      data: {{ valores_categoria|safe }},
+      borderColor: "#38bdf8",
+      backgroundColor: "rgba(56,189,248,0.15)",
+      tension: 0.35,
+      fill: true,
+      pointRadius: 4,
+      pointBackgroundColor: "#38bdf8"
+    }]
+  },
+  options: {
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      x: {
+        ticks: { color: "#9ca3af" },
+        grid: { display: false }
+      },
+      y: {
+        ticks: { color: "#9ca3af" },
+        grid: { color: "rgba(255,255,255,0.06)" }
+      }
     }
-}
+  }
+});
+</script>
+{% endif %}
+
+{% endblock %}

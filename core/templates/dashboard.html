@@ -1,183 +1,154 @@
-{% extends 'base.html' %}
-{% block title %}Dashboard{% endblock %}
+{% extends "base.html" %}
 {% load formatacao %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 
-<div class="container-fluid dashboard-a">
+<div class="dashboard-shell">
 
-  <!-- INPUT PRINCIPAL -->
-  <div class="card mb-4">
-    <div class="card-body">
-      <form method="post" class="quick-form">
-        {% csrf_token %}
-        <div class="input-group input-group-lg">
-          <input
-            type="text"
-            name="quick_entry"
-            class="form-control"
-            placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
-            autofocus
-          >
-          <button class="btn btn-primary px-4" type="submit">
-            Enviar
-          </button>
-        </div>
-        <small class="text-muted mt-1 d-block">
-          Digite como você fala. O sistema entende sozinho.
-        </small>
-      </form>
-    </div>
-  </div>
-  
-<!-- KPI CARDS -->
-  <div class="row g-4 mb-4">
-    <div class="col-md-4">
-      <div class="card kpi-card kpi-entrada">
-        <div class="card-body">
-          <span>Entradas</span>
-          <h3>{{ entradas|moeda_br }}</h3>
-        </div>
-      </div>
-    </div>
+  <!-- =====================
+       HERO · LANÇAMENTO
+  ====================== -->
+  <section class="dashboard-hero">
+    <form method="post" class="quick-form">
+      {% csrf_token %}
 
-    <div class="col-md-4">
-      <div class="card kpi-card kpi-saida">
-        <div class="card-body">
-          <span>Saídas</span>
-          <h3>{{ saidas|moeda_br }}</h3>
-        </div>
+      <label class="hero-label">
+        💬 O que aconteceu com seu dinheiro hoje?
+      </label>
+
+      <div class="hero-input">
+        <input
+          type="text"
+          name="quick_entry"
+          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
+          autofocus
+        >
+        <button type="submit">Enter ↵</button>
       </div>
+
+      <small class="hero-hint">
+        Digite como você fala. O sistema entende sozinho.
+      </small>
+    </form>
+  </section>
+
+  <!-- =====================
+       KPI · RESUMO
+  ====================== -->
+  <section class="dashboard-kpis">
+    <div class="kpi-card kpi-green">
+      <span>Entradas</span>
+      <strong>{{ entradas|moeda_br }}</strong>
     </div>
 
-    <div class="col-md-4">
-      <div class="card kpi-card kpi-saldo">
-        <div class="card-body">
-          <span>Saldo</span>
-          <h3>{{ saldo|moeda_br }}</h3>
-        </div>
-      </div>
+    <div class="kpi-card kpi-red">
+      <span>Saídas</span>
+      <strong>{{ saidas|moeda_br }}</strong>
     </div>
-  </div>
 
-</div>
-  <!-- RESUMO -->
-  <div class="row g-3 mb-4">
-    <div class="col-md-4">
-      <div class="card resumo-card success">
-        <small>Entradas</small>
-        <h2>{{ entradas|moeda_br }}</h2>
-      </div>
+    <div class="kpi-card kpi-blue">
+      <span>Saldo atual</span>
+      <strong>{{ saldo|moeda_br }}</strong>
     </div>
-    <div class="col-md-4">
-      <div class="card resumo-card danger">
-        <small>Saídas</small>
-        <h2>{{ saidas|moeda_br }}</h2>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card resumo-card primary">
-        <small>Saldo atual</small>
-        <h2>{{ saldo|moeda_br }}</h2>
-      </div>
-    </div>
-  </div>
+  </section>
 
-  <!-- INSIGHT PRINCIPAL -->
-  <div class="card insight mb-4">
-    <div class="card-body">
-      <strong>{{ humor.emoji }} {{ humor.texto }}</strong>
+  <!-- =====================
+       INSIGHT PRINCIPAL
+  ====================== -->
+  <section class="dashboard-insight">
+    <div class="insight-card">
+      <span class="insight-emoji">{{ humor.emoji }}</span>
+      <span class="insight-text">{{ humor.texto }}</span>
     </div>
-  </div>
+  </section>
 
-  <!-- GRÁFICO -->
-  <div class="card mb-4">
-    <div class="card-body">
-      <h6 class="mb-3">📈 Evolução do mês</h6>
+  <!-- =====================
+       GRÁFICO
+  ====================== -->
+  {% if tem_grafico %}
+  <section class="dashboard-chart">
+    <header>
+      <h3>📈 Evolução do mês</h3>
+    </header>
+    <div class="chart-wrapper">
       <canvas id="graficoLinha"></canvas>
     </div>
-  </div>
+  </section>
+  {% endif %}
 
-  <!-- ÚLTIMOS LANÇAMENTOS -->
-  <div class="card">
-    <div class="card-body">
-      <h6 class="mb-3">Últimos lançamentos</h6>
+  <!-- =====================
+       ÚLTIMOS LANÇAMENTOS
+  ====================== -->
+  <section class="dashboard-list">
+    <header>
+      <h3>Últimos lançamentos</h3>
+    </header>
 
-      <table class="table table-sm table-hover">
-        <tbody>
-          {% for l in lancamentos|slice:":5" %}
-          <tr>
-            <td width="60">
-              {% if l.tipo == 'E' %}
-                <span class="badge bg-success">+</span>
-              {% else %}
-                <span class="badge bg-danger">−</span>
-              {% endif %}
-            </td>
-            <td>{{ l.categoria.nome }}</td>
-            <td class="text-end">{{ l.valor|moeda_br }}</td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="3" class="text-center text-muted">
-              Nenhum lançamento ainda
-            </td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-
-    </div>
-  </div>
+    <table class="lancamentos-table">
+      <tbody>
+        {% for l in lancamentos|slice:":5" %}
+        <tr>
+          <td class="tipo">
+            {% if l.tipo == "E" %}
+              <span class="tag entrada">+</span>
+            {% else %}
+              <span class="tag saida">−</span>
+            {% endif %}
+          </td>
+          <td class="categoria">
+            {{ l.categoria.nome }}
+          </td>
+          <td class="valor">
+            {{ l.valor|moeda_br }}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="empty">
+            Nenhum lançamento ainda
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
 
 </div>
 
 {% if tem_grafico %}
 <script>
-new Chart(document.getElementById('graficoCategoria'), {
-    type: 'line',
-    data: {
-        labels: {{ labels_categoria|safe }},
-        datasets: [{
-            label: 'Gastos',
-            data: {{ valores_categoria|safe }},
-            borderColor: '#38bdf8',
-            backgroundColor: 'rgba(56,189,248,.15)',
-            tension: 0.4,
-            fill: true,
-            pointRadius: 4,
-            pointBackgroundColor: '#38bdf8'
-        }]
-    },
-
-    options: {
+new Chart(document.getElementById("graficoLinha"), {
+  type: "line",
+  data: {
+    labels: {{ labels_categoria|safe }},
+    datasets: [{
+      data: {{ valores_categoria|safe }},
+      borderColor: "#38bdf8",
+      backgroundColor: "rgba(56,189,248,0.15)",
+      tension: 0.35,
+      fill: true,
+      pointRadius: 4,
+      pointBackgroundColor: "#38bdf8"
+    }]
+  },
+  options: {
     plugins: {
-        legend: {
-            display: false
-        }
+      legend: { display: false }
     },
     scales: {
-        x: {
-            ticks: {
-                color: '#e5e7eb'
-            },
-            grid: {
-                color: 'rgba(255,255,255,0.05)'
-            }
-        },
-        y: {
-            ticks: {
-                color: '#e5e7eb'
-            },
-            grid: {
-                color: 'rgba(255,255,255,0.08)'
-            }
-        }
+      x: {
+        ticks: { color: "#9ca3af" },
+        grid: { display: false }
+      },
+      y: {
+        ticks: { color: "#9ca3af" },
+        grid: { color: "rgba(255,255,255,0.06)" }
+      }
     }
-}
+  }
 });
 </script>
-
 {% endif %}
 
 {% endblock %}
