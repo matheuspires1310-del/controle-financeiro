@@ -1,154 +1,264 @@
-{% extends "base.html" %}
-{% load formatacao %}
-{% block title %}Dashboard{% endblock %}
+/* =====================================================
+   DASHBOARD DARK · SAAS / FINTECH
+   ===================================================== */
 
-{% block content %}
+/* ---------------------
+   DESIGN TOKENS
+--------------------- */
+:root {
+    --bg-page: #0b0f19;
+    --bg-card: #111827;
+    --bg-card-soft: #0f172a;
 
-<div class="dashboard-shell">
+    --border-soft: #1f2937;
 
-  <!-- =====================
-       HERO · LANÇAMENTO
-  ====================== -->
-  <section class="dashboard-hero">
-    <form method="post" class="quick-form">
-      {% csrf_token %}
+    --text-main: #e5e7eb;
+    --text-muted: #9ca3af;
+    --text-soft: #6b7280;
 
-      <label class="hero-label">
-        💬 O que aconteceu com seu dinheiro hoje?
-      </label>
+    --green: #22c55e;
+    --red: #ef4444;
+    --blue: #38bdf8;
 
-      <div class="hero-input">
-        <input
-          type="text"
-          name="quick_entry"
-          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
-          autofocus
-        >
-        <button type="submit">Enter ↵</button>
-      </div>
+    --radius: 14px;
+    --shadow-soft: 0 12px 32px rgba(0,0,0,.35);
+}
 
-      <small class="hero-hint">
-        Digite como você fala. O sistema entende sozinho.
-      </small>
-    </form>
-  </section>
+/* ---------------------
+   BASE
+--------------------- */
+body {
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
 
-  <!-- =====================
-       KPI · RESUMO
-  ====================== -->
-  <section class="dashboard-kpis">
-    <div class="kpi-card kpi-green">
-      <span>Entradas</span>
-      <strong>{{ entradas|moeda_br }}</strong>
-    </div>
+.dashboard-shell {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+    display: grid;
+    gap: 28px;
+}
 
-    <div class="kpi-card kpi-red">
-      <span>Saídas</span>
-      <strong>{{ saidas|moeda_br }}</strong>
-    </div>
+/* ---------------------
+   HERO · QUICK ENTRY
+--------------------- */
+.dashboard-hero {
+    background: linear-gradient(180deg, var(--bg-card-soft), var(--bg-card));
+    border-radius: var(--radius);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-soft);
+}
 
-    <div class="kpi-card kpi-blue">
-      <span>Saldo atual</span>
-      <strong>{{ saldo|moeda_br }}</strong>
-    </div>
-  </section>
+.hero-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-muted);
+}
 
-  <!-- =====================
-       INSIGHT PRINCIPAL
-  ====================== -->
-  <section class="dashboard-insight">
-    <div class="insight-card">
-      <span class="insight-emoji">{{ humor.emoji }}</span>
-      <span class="insight-text">{{ humor.texto }}</span>
-    </div>
-  </section>
+.hero-input {
+    display: flex;
+    gap: 12px;
+}
 
-  <!-- =====================
-       GRÁFICO
-  ====================== -->
-  {% if tem_grafico %}
-  <section class="dashboard-chart">
-    <header>
-      <h3>📈 Evolução do mês</h3>
-    </header>
-    <div class="chart-wrapper">
-      <canvas id="graficoLinha"></canvas>
-    </div>
-  </section>
-  {% endif %}
+.hero-input input {
+    flex: 1;
+    background: #020617;
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    color: var(--text-main);
+}
 
-  <!-- =====================
-       ÚLTIMOS LANÇAMENTOS
-  ====================== -->
-  <section class="dashboard-list">
-    <header>
-      <h3>Últimos lançamentos</h3>
-    </header>
+.hero-input input::placeholder {
+    color: var(--text-soft);
+}
 
-    <table class="lancamentos-table">
-      <tbody>
-        {% for l in lancamentos|slice:":5" %}
-        <tr>
-          <td class="tipo">
-            {% if l.tipo == "E" %}
-              <span class="tag entrada">+</span>
-            {% else %}
-              <span class="tag saida">−</span>
-            {% endif %}
-          </td>
-          <td class="categoria">
-            {{ l.categoria.nome }}
-          </td>
-          <td class="valor">
-            {{ l.valor|moeda_br }}
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="3" class="empty">
-            Nenhum lançamento ainda
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </section>
+.hero-input input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 2px rgba(56,189,248,.25);
+}
 
-</div>
+.hero-input button {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    border: none;
+    border-radius: 12px;
+    padding: 0 22px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
 
-{% if tem_grafico %}
-<script>
-new Chart(document.getElementById("graficoLinha"), {
-  type: "line",
-  data: {
-    labels: {{ labels_categoria|safe }},
-    datasets: [{
-      data: {{ valores_categoria|safe }},
-      borderColor: "#38bdf8",
-      backgroundColor: "rgba(56,189,248,0.15)",
-      tension: 0.35,
-      fill: true,
-      pointRadius: 4,
-      pointBackgroundColor: "#38bdf8"
-    }]
-  },
-  options: {
-    plugins: {
-      legend: { display: false }
-    },
-    scales: {
-      x: {
-        ticks: { color: "#9ca3af" },
-        grid: { display: false }
-      },
-      y: {
-        ticks: { color: "#9ca3af" },
-        grid: { color: "rgba(255,255,255,0.06)" }
-      }
+.hero-input button:hover {
+    filter: brightness(1.1);
+}
+
+.hero-hint {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+}
+
+/* ---------------------
+   KPI
+--------------------- */
+.dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.kpi-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-soft);
+}
+
+.kpi-card span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-soft);
+}
+
+.kpi-card strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.kpi-green strong { color: var(--green); }
+.kpi-red strong   { color: var(--red); }
+.kpi-blue strong  { color: var(--blue); }
+
+/* ---------------------
+   INSIGHT
+--------------------- */
+.insight-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--bg-card), var(--bg-card-soft));
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-soft);
+}
+
+.insight-emoji {
+    font-size: 1.6rem;
+}
+
+.insight-text {
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* ---------------------
+   GRÁFICO
+--------------------- */
+.dashboard-chart {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 22px 24px 26px;
+    box-shadow: var(--shadow-soft);
+}
+
+.dashboard-chart h3 {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.chart-wrapper {
+    height: 300px;
+}
+
+/* ---------------------
+   LISTA DE LANÇAMENTOS
+--------------------- */
+.dashboard-list {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-soft);
+}
+
+.dashboard-list h3 {
+    margin-bottom: 14px;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.lancamentos-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lancamentos-table tr {
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.lancamentos-table td {
+    padding: 10px 6px;
+    font-size: 0.95rem;
+}
+
+.lancamentos-table td.valor {
+    text-align: right;
+    font-weight: 600;
+}
+
+.lancamentos-table .empty {
+    text-align: center;
+    color: var(--text-soft);
+    padding: 20px;
+}
+
+/* ---------------------
+   TAGS
+--------------------- */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.tag.entrada {
+    background: rgba(34,197,94,.15);
+    color: var(--green);
+}
+
+.tag.saida {
+    background: rgba(239,68,68,.15);
+    color: var(--red);
+}
+
+/* ---------------------
+   RESPONSIVO
+--------------------- */
+@media (max-width: 900px) {
+    .dashboard-kpis {
+        grid-template-columns: 1fr;
     }
-  }
-});
-</script>
-{% endif %}
 
-{% endblock %}
+    .hero-input {
+        flex-direction: column;
+    }
+
+    .hero-input button {
+        width: 100%;
+        height: 44px;
+    }
+}
