@@ -178,6 +178,7 @@ def dashboard(request):
     else:
         acao_principal = None
 
+    print("ACAO PRINCIPAL:", acao_principal)
 
 
     # --------------------
