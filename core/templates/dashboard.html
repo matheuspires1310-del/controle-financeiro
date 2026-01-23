@@ -7,28 +7,34 @@
 {% block content %}
 
 <div class="dashboard-shell">
+    
 
-<!-- =====================
-     KPI CARDS
-===================== -->
-<section class="dashboard-kpis">
+  <!-- =====================
+       HERO · LANÇAMENTO
+  ====================== -->
+  <section class="dashboard-hero">
+    <form method="post" class="quick-form">
+      {% csrf_token %}
 
-  <div class="kpi-card kpi-green">
-    <span>Entradas</span>
-    <strong>{{ entradas|moeda_br }}</strong>
-  </div>
+      <label class="hero-label">
+        💬 O que aconteceu com seu dinheiro hoje?
+      </label>
 
-  <div class="kpi-card kpi-red">
-    <span>Saídas</span>
-    <strong>{{ saidas|moeda_br }}</strong>
-  </div>
+      <div class="hero-input">
+        <input
+          type="text"
+          name="quick_entry"
+          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
+          autofocus
+        >
+        <button type="submit">Enter ↵</button>
+      </div>
 
-  <div class="kpi-card kpi-blue">
-    <span>Saldo</span>
-    <strong>{{ saldo|moeda_br }}</strong>
-  </div>
-
-</section>
+      <small class="hero-hint">
+        Digite como você fala. O sistema entende sozinho.
+      </small>
+    </form>
+  </section>
 
   <!-- =====================
        KPI · RESUMO
