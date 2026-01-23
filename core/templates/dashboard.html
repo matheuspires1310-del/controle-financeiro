@@ -8,74 +8,58 @@
 
 <div class="dashboard-shell">
     
-<!-- =====================
-     KPI CARDS
-===================== -->
-<section class="dashboard-kpis">
-
-  <div class="kpi-card kpi-green">
-    <span>Entradas</span>
-    <strong>{{ entradas|moeda_br }}</strong>
+  <!-- ===== HERO (quick entry) ===== -->
+<section class="dashboard-hero container-fluid py-4">
+  <div class="hero-wrapper card">
+    <div class="card-body">
+      <form method="post" class="quick-form d-flex align-items-start gap-3">
+        {% csrf_token %}
+        <div class="hero-meta w-100">
+          <label class="hero-label mb-2">💬 O que aconteceu com seu dinheiro hoje?</label>
+          <div class="hero-input d-flex gap-2">
+            <input
+              type="text"
+              name="quick_entry"
+              class="form-control hero-field"
+              placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
+              autocomplete="off"
+              autofocus
+            >
+            <button class="btn btn-primary hero-btn" type="submit">Enter ↵</button>
+          </div>
+          <small class="hero-hint d-block mt-2">Digite como você fala. O sistema entende sozinho.</small>
+        </div>
+      </form>
+    </div>
   </div>
-
-  <div class="kpi-card kpi-red">
-    <span>Saídas</span>
-    <strong>{{ saidas|moeda_br }}</strong>
-  </div>
-
-  <div class="kpi-card kpi-blue">
-    <span>Saldo</span>
-    <strong>{{ saldo|moeda_br }}</strong>
-  </div>
-
 </section>
 
-  <!-- =====================
-       HERO · LANÇAMENTO
-  ====================== -->
-  <section class="dashboard-hero">
-    <form method="post" class="quick-form">
-      {% csrf_token %}
-
-      <label class="hero-label">
-        💬 O que aconteceu com seu dinheiro hoje?
-      </label>
-
-      <div class="hero-input">
-        <input
-          type="text"
-          name="quick_entry"
-          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
-          autofocus
-        >
-        <button type="submit">Enter ↵</button>
+<!-- ===== KPI CARDS ===== -->
+<section class="container-fluid mt-4">
+  <div class="dashboard-kpis">
+    <div class="kpi-card kpi-green card">
+      <div class="card-body">
+        <span class="kpi-label">Entradas</span>
+        <strong class="kpi-value">{{ entradas|moeda_br }}</strong>
       </div>
-
-      <small class="hero-hint">
-        Digite como você fala. O sistema entende sozinho.
-      </small>
-    </form>
-  </section>
-
-  <!-- =====================
-       KPI · RESUMO
-  ====================== -->
-  <section class="dashboard-kpis">
-    <div class="kpi-card kpi-green">
-      <span>Entradas</span>
-      <strong>{{ entradas|moeda_br }}</strong>
     </div>
 
-    <div class="kpi-card kpi-red">
-      <span>Saídas</span>
-      <strong>{{ saidas|moeda_br }}</strong>
+    <div class="kpi-card kpi-red card">
+      <div class="card-body">
+        <span class="kpi-label">Saídas</span>
+        <strong class="kpi-value">{{ saidas|moeda_br }}</strong>
+      </div>
     </div>
 
-    <div class="kpi-card kpi-blue">
-      <span>Saldo atual</span>
-      <strong>{{ saldo|moeda_br }}</strong>
+    <div class="kpi-card kpi-blue card">
+      <div class="card-body">
+        <span class="kpi-label">Saldo</span>
+        <strong class="kpi-value">{{ saldo|moeda_br }}</strong>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- =====================
        INSIGHT PRINCIPAL
