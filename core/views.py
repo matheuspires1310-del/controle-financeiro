@@ -154,7 +154,7 @@ def dashboard(request):
     )
 
 
-    PERCENTUAL_ECONOMIA = 0.2
+    PERCENTUAL_ECONOMIA = Decimal('0.2')
 
     gastos_por_categoria = (
         Lancamento.objects
