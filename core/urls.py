@@ -16,4 +16,5 @@ urlpatterns = [
     path('lancamentos/', views.lista_lancamentos, name='lista_lancamentos'),
 
     path('relatorios/', views.relatorio_mensal, name='relatorio_mensal'),
+    path("cadastro/", views.cadastro, name="cadastro"),
     ]

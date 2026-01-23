@@ -10,6 +10,9 @@ from django.views.decorators.http import require_POST
 from .models import Categoria
 from django.http import JsonResponse
 import re
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
 
 
 @login_required
@@ -436,3 +439,25 @@ def relatorio_mensal(request):
     }
 
     return render(request, 'relatorios/mensal.html', context)
+
+def cadastro(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        if User.objects.filter(username=username).exists():
+            return render(request, "cadastro.html", {
+                "erro": "Usuário já existe"
+            })
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        login(request, user)
+        return redirect("dashboard")
+
+    return render(request, "cadastro.html")
