@@ -454,3 +454,43 @@ canvas {
 .insight-card.highlight .text-muted {
   color: #cbd5f5 !important;
 }
+
+/* =========================
+   ÚLTIMOS LANÇAMENTOS (CARD)
+========================= */
+
+.ultimos-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ultimos-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: .95rem;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.ultimos-list li:last-child {
+  border-bottom: none;
+}
+
+.ultimos-list li span {
+  color: #e5e7eb;
+}
+
+.ultimos-list li strong {
+  font-weight: 600;
+}
+
+/* cores */
+.ultimos-list li.in strong {
+  color: #22c55e;
+}
+
+.ultimos-list li.out strong {
+  color: #ef4444;
+}

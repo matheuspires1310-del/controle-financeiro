@@ -93,6 +93,26 @@
   </div>
   {% endif %}
 
+  <!-- ÚLTIMOS LANÇAMENTOS -->
+  <div class="col-md-3">
+    <div class="card insight-card soft">
+      <div class="card-body">
+        <h6 class="mb-3">📋 Últimos lançamentos</h6>
+
+        <ul class="ultimos-list">
+          {% for l in lancamentos|slice:":5" %}
+          <li class="{% if l.tipo == 'E' %}in{% else %}out{% endif %}">
+            <span>{{ l.categoria.nome }}</span>
+            <strong>{{ l.valor|moeda_br }}</strong>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
   <!-- LEITURA INTELIGENTE -->
   {% if impacto_anual %}
   <div class="col-12">
@@ -165,44 +185,6 @@
   </section>
   {% endif %}
 
-  <!-- =====================
-       ÚLTIMOS LANÇAMENTOS
-  ====================== -->
-  <section class="dashboard-list">
-    <header>
-      <h3>Últimos lançamentos</h3>
-    </header>
-
-    <table class="lancamentos-table">
-      <tbody>
-        {% for l in lancamentos|slice:":5" %}
-        <tr>
-          <td class="tipo">
-            {% if l.tipo == "E" %}
-              <span class="tag entrada">+</span>
-            {% else %}
-              <span class="tag saida">−</span>
-            {% endif %}
-          </td>
-          <td class="categoria">
-            {{ l.categoria.nome }}
-          </td>
-          <td class="valor">
-            {{ l.valor|moeda_br }}
-          </td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="3" class="empty">
-            Nenhum lançamento ainda
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </section>
-
-</div>
 
 {% if tem_grafico %}
 <script>
