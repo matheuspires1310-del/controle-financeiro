@@ -60,14 +60,12 @@
   </div>
 </section>
 
-{% if acao_principal %}
 <div class="row g-4 mb-4">
 
-      <!-- COLUNA ESQUERDA -->
+  <!-- COLUNA ESQUERDA -->
   <div class="col-lg-8 d-flex flex-column gap-4">
 
-
-   {% if acao_principal %}
+    {% if acao_principal %}
     <div class="card insight-card highlight">
       <div class="card-body">
         <h6 class="mb-2">🎯 Ação prioritária do mês</h6>
@@ -78,13 +76,9 @@
         </span>
       </div>
     </div>
-  </div>
-</div>
-{% endif %}
+    {% endif %}
 
-  <!-- PERSONALIDADE FINANCEIRA -->
-  {% if personalidade %}
-  <div class="col-md-6">
+    {% if personalidade %}
     <div class="card insight-card soft">
       <div class="card-body">
         <h6 class="mb-2">🧠 Seu perfil financeiro</h6>
@@ -92,11 +86,11 @@
         <p class="text-muted mb-0">{{ descricao_personalidade }}</p>
       </div>
     </div>
-  </div>
-</div>
-{% endif %}
+    {% endif %}
 
- <!-- COLUNA DIREITA ULTIMOS LANÇAMENTOS -->
+  </div>
+
+  <!-- COLUNA DIREITA -->
   <div class="col-lg-4">
     <div class="card insight-card soft h-100">
       <div class="card-body">
@@ -110,10 +104,13 @@
           </li>
           {% endfor %}
         </ul>
+
       </div>
     </div>
   </div>
+
 </div>
+
   <!-- LEITURA INTELIGENTE -->
   {% if impacto_anual %}
   <div class="col-12">
