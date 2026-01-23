@@ -14,6 +14,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 
+CATEGORIAS_FLEXIVEIS = [
+        'uber',
+        'ifood',
+        'cerveja',
+        'delivery',
+        'lazer',
+        'streaming',
+        'besteiras'
+    ]
 
 @login_required
 def dashboard(request):
@@ -153,25 +162,19 @@ def dashboard(request):
         .annotate(total=Sum('valor'))
     )
     
-    CATEGORIAS_FLEXIVEIS = [
-        'uber',
-        'ifood',
-        'cerveja',
-        'delivery',
-        'lazer',
-        'streaming',
-        'besteiras'
-    ]
-
-
+    # --------------------
+    # AÇÃO PRINCIPAL
     PERCENTUAL_ECONOMIA = Decimal('0.2')
+
+    regex = "|".join(CATEGORIAS_FLEXIVEIS)
+
 
     gastos_flexiveis = (
         Lancamento.objects
         .filter(
             user=request.user,
             tipo='S',
-            categoria__nome__iregex=r'uber|ifood|cerveja|delivery|lazer|besteira'
+            categoria__nome__iregex=regex
         )
         .values('categoria__nome')
         .annotate(total=Sum('valor'))
@@ -183,7 +186,9 @@ def dashboard(request):
     if total_flexivel > 0:
         economia = (total_flexivel * PERCENTUAL_ECONOMIA).quantize(Decimal("0.01"))
 
-        categorias = ", ".join([g['categoria__nome'] for g in gastos_flexiveis])
+        categorias = ", ".join(
+        sorted({g['categoria__nome'] for g in gastos_flexiveis})
+    )
 
         acao_principal = {
             "titulo": "Reduzir gastos flexíveis",
