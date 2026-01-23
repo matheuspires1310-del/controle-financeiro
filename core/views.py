@@ -197,10 +197,6 @@ def dashboard(request):
     else:
         acao_principal = None
 
-
-    print('ACAO PRINCIPAL:', acao_principal)
-
-
     # --------------------
     # PERSONALIDADE
     # --------------------
@@ -261,8 +257,8 @@ def dashboard(request):
     simulacao = None
     impacto_anual = None
 
-    if categorias:
-        maior = max(categorias, key=lambda x: x['total'])
+    if gastos_flexiveis:
+        maior = max(gastos_flexiveis, key=lambda g: g['total'])
 
         valor_categoria = maior['total']
         percentual_reducao = Decimal(10)
@@ -272,8 +268,9 @@ def dashboard(request):
         simulacao = {
             'categoria': maior['categoria__nome'],
             'percentual': percentual_reducao,
-            'economia': economia.quantize(Decimal('0.01')),
+            'economia': economia
         }
+
 
         impacto_anual = {
             'economia_anual': economia * Decimal(12),
