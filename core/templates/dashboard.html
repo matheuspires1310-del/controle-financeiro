@@ -72,7 +72,7 @@
         <p class="mb-1 fw-semibold">{{ acao_principal.titulo }}</p>
         <p class="text-muted mb-2">{{ acao_principal.descricao }}</p>
         <span class="impact">
-          Impacto estimado: +R$ {{ acao_principal.impacto }}
+          Impacto estimado: +R$ {{ acao_principal.impacto|moeda_br }}
         </span>
       </div>
     </div>
@@ -124,7 +124,7 @@
         <ul class="mb-0">
           <li>
             Economia anual estimada:
-            <strong>R$ {{ impacto_anual.economia_anual|floatformat:2 }}</strong>
+            <strong>R$ {{ impacto_anual.economia_anual|moeda_br }}</strong>
           </li>
           <li>
             Reduções graduais funcionam melhor que cortes bruscos.
@@ -145,19 +145,19 @@
           <div class="col-md-4">
             <small class="text-muted">Gasto atual</small>
             <h5 class="text-danger">
-              R$ {{ impacto_anual.gasto_atual|floatformat:2 }}
+              R$ {{ impacto_anual.gasto_atual|moeda_br }}
             </h5>
           </div>
           <div class="col-md-4">
             <small class="text-muted">Com ajustes</small>
             <h5 class="text-success">
-              R$ {{ impacto_anual.gasto_ajustado|floatformat:2 }}
+              R$ {{ impacto_anual.gasto_ajustado|moeda_br }}
             </h5>
           </div>
           <div class="col-md-4">
             <small class="text-muted">Economia</small>
             <h4 class="fw-bold text-success">
-              R$ {{ impacto_anual.economia_anual|floatformat:2 }}
+              R$ {{ impacto_anual.economia_anual|moeda_br }}
             </h4>
           </div>
         </div>
