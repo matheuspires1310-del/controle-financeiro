@@ -154,21 +154,26 @@ def dashboard(request):
     )
 
 
-    gastos_cartao = Lancamento.objects.filter(
-        user=request.user,
-        tipo='saida',
-        categoria__nome__icontains='cart'
+    PERCENTUAL_ECONOMIA = 0.2
+
+    gastos_por_categoria = (
+        Lancamento.objects
+        .filter(
+            user=request.user,
+            tipo='saida'
+        )
+        .values('categoria__nome')
+        .annotate(total=Sum('valor'))
+        .order_by('-total')
     )
 
-    total_cartao = gastos_cartao.aggregate(
-        total=Sum('valor')
-    )['total'] or 0
+    if gastos_por_categoria:
+        principal = gastos_por_categoria[0]
 
-    if total_cartao > 0:
         acao_principal = {
-            "titulo": "Reduzir gastos com cartão",
-            "descricao": "Cortar pequenos excessos recorrentes",
-            "impacto": round(total_cartao * 0.2, 2)
+            "titulo": f"Reduzir gastos com {principal['categoria__nome']}",
+            "descricao": "Pequenos ajustes nessa categoria geram impacto rápido",
+            "impacto": round(principal['total'] * PERCENTUAL_ECONOMIA, 2)
         }
     else:
         acao_principal = None
