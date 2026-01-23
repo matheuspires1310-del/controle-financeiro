@@ -2,205 +2,123 @@
 {% load static %}
 {% load formatacao %}
 
-{% block title %}Painel de controle{% endblock %}
+{% block title %}Painel de Controle{% endblock %}
 
 {% block content %}
-
 <div class="dashboard-shell">
-    
 
-  <!-- =====================
-       HERO · LANÇAMENTO
-  ====================== -->
+  <!-- Hero: Lançamento Rápido -->
   <section class="dashboard-hero">
     <form method="post" class="quick-form">
       {% csrf_token %}
-
-      <label class="hero-label">
-        💬 O que aconteceu com seu dinheiro hoje?
-      </label>
-
+      <label class="hero-label" for="quick_entry">💬 O que aconteceu com seu dinheiro hoje?</label>
       <div class="hero-input">
-        <input
-          type="text"
-          name="quick_entry"
-          placeholder="Ex: saída 45 uber ontem | entrada 1500 salário"
-          autofocus
-        >
+        <input type="text" id="quick_entry" name="quick_entry" placeholder="Ex: saída 45 uber ontem | entrada 1500 salário" autofocus aria-describedby="hero-hint">
         <button type="submit">Enter ↵</button>
       </div>
-
-      <small class="hero-hint">
-        Digite como você fala. O sistema entende sozinho.
-      </small>
+      <small id="hero-hint" class="hero-hint">Digite como você fala. O sistema entende sozinho.</small>
     </form>
   </section>
 
-  <!-- =====================
-       KPI · RESUMO
-  ====================== -->
+  <!-- KPIs: Resumo Financeiro -->
   <section class="dashboard-kpis">
-    <div class="kpi-card kpi-green">
-      <span>Entradas</span>
-      <strong>{{ entradas|moeda_br }}</strong>
-    </div>
-
-    <div class="kpi-card kpi-red">
-      <span>Saídas</span>
-      <strong>{{ saidas|moeda_br }}</strong>
-    </div>
-
-    <div class="kpi-card kpi-blue">
-      <span>Saldo atual</span>
-      <strong>{{ saldo|moeda_br }}</strong>
-    </div>
+    <div class="kpi-card kpi-green"><span>Entradas</span><strong>{{ entradas|moeda_br }}</strong></div>
+    <div class="kpi-card kpi-red"><span>Saídas</span><strong>{{ saidas|moeda_br }}</strong></div>
+    <div class="kpi-card kpi-blue"><span>Saldo atual</span><strong>{{ saldo|moeda_br }}</strong></div>
   </section>
 
-  <!-- =====================
-       INSIGHT PRINCIPAL
-  ====================== -->
+  <!-- Insight Principal: Humor Financeiro -->
   <section class="dashboard-insight">
     <div class="insight-card">
       <span class="insight-emoji">{{ humor.emoji }}</span>
       <span class="insight-text">{{ humor.texto }}</span>
     </div>
   </section>
-<!-- ================= INSIGHTS FINANCEIROS ================= -->
-<div class="row g-4 mb-4">
 
-  <!-- AÇÃO PRIORITÁRIA -->
-  {% if acao_principal %}
-  <div class="col-md-6">
-    <div class="card insight-card highlight">
-      <div class="card-body">
-        <h6 class="mb-2">🎯 Ação prioritária do mês</h6>
-        <p class="mb-1 fw-semibold">{{ acao_principal.titulo }}</p>
-        <p class="text-muted mb-2">{{ acao_principal.descricao }}</p>
-        <span class="impact">
-          Impacto estimado: +R$ {{ acao_principal.impacto }}
-        </span>
+  <!-- Insights Financeiros -->
+  <div class="row g-4 mb-4">
+    {% if acao_principal %}
+    <div class="col-md-6">
+      <div class="card insight-card highlight">
+        <div class="card-body">
+          <h6 class="mb-2">🎯 Ação prioritária do mês</h6>
+          <p class="mb-1 fw-semibold">{{ acao_principal.titulo }}</p>
+          <p class="text-muted mb-2">{{ acao_principal.descricao }}</p>
+          <span class="impact">Impacto estimado: +R$ {{ acao_principal.impacto }}</span>
+        </div>
       </div>
     </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
-  <!-- PERSONALIDADE FINANCEIRA -->
-  {% if personalidade %}
-  <div class="col-md-6">
-    <div class="card insight-card soft">
-      <div class="card-body">
-        <h6 class="mb-2">🧠 Seu perfil financeiro</h6>
-        <h5 class="mb-1">{{ personalidade }}</h5>
-        <p class="text-muted mb-0">{{ descricao_personalidade }}</p>
+    {% if personalidade %}
+    <div class="col-md-6">
+      <div class="card insight-card soft">
+        <div class="card-body">
+          <h6 class="mb-2">🧠 Seu perfil financeiro</h6>
+          <h5 class="mb-1">{{ personalidade }}</h5>
+          <p class="text-muted mb-0">{{ descricao_personalidade }}</p>
+        </div>
       </div>
     </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
-  <!-- LEITURA INTELIGENTE -->
-  {% if impacto_anual %}
-  <div class="col-12">
-    <div class="card insight-card info">
-      <div class="card-body">
-        <h6 class="mb-2">💡 Leitura inteligente dos gastos</h6>
-        <p class="mb-2">
-          Analisando seus hábitos atuais, pequenos ajustes distribuídos podem gerar
-          uma economia anual relevante sem comprometer seu estilo de vida.
-        </p>
-        <ul class="mb-0">
-          <li>
-            Economia anual estimada:
-            <strong>R$ {{ impacto_anual.economia_anual|floatformat:2 }}</strong>
-          </li>
-          <li>
-            Reduções graduais funcionam melhor que cortes bruscos.
-          </li>
-        </ul>
+    {% if impacto_anual %}
+    <div class="col-12">
+      <div class="card insight-card info">
+        <div class="card-body">
+          <h6 class="mb-2">💡 Leitura inteligente dos gastos</h6>
+          <p class="mb-2">Analisando seus hábitos atuais, pequenos ajustes podem gerar economia anual sem comprometer seu estilo de vida.</p>
+          <ul class="mb-0">
+            <li>Economia anual estimada: <strong>R$ {{ impacto_anual.economia_anual|floatformat:2 }}</strong></li>
+            <li>Reduções graduais funcionam melhor que cortes bruscos.</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-  {% endif %}
+    {% endif %}
 
-  <!-- IMPACTO ANUAL -->
-  {% if impacto_anual %}
-  <div class="col-12">
-    <div class="card insight-card success">
-      <div class="card-body">
-        <h6 class="mb-3">📆 Projeção anual</h6>
-        <div class="row text-center">
-          <div class="col-md-4">
-            <small class="text-muted">Gasto atual</small>
-            <h5 class="text-danger">
-              R$ {{ impacto_anual.gasto_atual|floatformat:2 }}
-            </h5>
-          </div>
-          <div class="col-md-4">
-            <small class="text-muted">Com ajustes</small>
-            <h5 class="text-success">
-              R$ {{ impacto_anual.gasto_ajustado|floatformat:2 }}
-            </h5>
-          </div>
-          <div class="col-md-4">
-            <small class="text-muted">Economia</small>
-            <h4 class="fw-bold text-success">
-              R$ {{ impacto_anual.economia_anual|floatformat:2 }}
-            </h4>
+    {% if impacto_anual %}
+    <div class="col-12">
+      <div class="card insight-card success">
+        <div class="card-body">
+          <h6 class="mb-3">📆 Projeção anual</h6>
+          <div class="row text-center">
+            <div class="col-md-4"><small class="text-muted">Gasto atual</small><h5 class="text-danger">R$ {{ impacto_anual.gasto_atual|floatformat:2 }}</h5></div>
+            <div class="col-md-4"><small class="text-muted">Com ajustes</small><h5 class="text-success">R$ {{ impacto_anual.gasto_ajustado|floatformat:2 }}</h5></div>
+            <div class="col-md-4"><small class="text-muted">Economia</small><h4 class="fw-bold text-success">R$ {{ impacto_anual.economia_anual|floatformat:2 }}</h4></div>
           </div>
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
-  {% endif %}
 
-</div>
-<!-- ======================================================== -->
-
-  <!-- =====================
-       GRÁFICO
-  ====================== -->
+  <!-- Gráfico: Evolução Mensal -->
   {% if tem_grafico %}
   <section class="dashboard-chart">
-    <header>
-      <h3>📈 Evolução do mês</h3>
-    </header>
+    <h3>📈 Evolução do mês</h3>
     <div class="chart-wrapper">
-      <canvas id="graficoLinha"></canvas>
+      <canvas id="graficoLinha" aria-label="Gráfico de linha da evolução financeira mensal"></canvas>
     </div>
   </section>
   {% endif %}
 
-  <!-- =====================
-       ÚLTIMOS LANÇAMENTOS
-  ====================== -->
+  <!-- Últimos Lançamentos -->
   <section class="dashboard-list">
-    <header>
-      <h3>Últimos lançamentos</h3>
-    </header>
-
+    <h3>Últimos lançamentos</h3>
     <table class="lancamentos-table">
+      <thead>
+        <tr><th>Tipo</th><th>Categoria</th><th>Valor</th></tr>
+      </thead>
       <tbody>
         {% for l in lancamentos|slice:":5" %}
         <tr>
-          <td class="tipo">
-            {% if l.tipo == "E" %}
-              <span class="tag entrada">+</span>
-            {% else %}
-              <span class="tag saida">−</span>
-            {% endif %}
-          </td>
-          <td class="categoria">
-            {{ l.categoria.nome }}
-          </td>
-          <td class="valor">
-            {{ l.valor|moeda_br }}
-          </td>
+          <td class="tipo">{% if l.tipo == "E" %}<span class="tag entrada">+</span>{% else %}<span class="tag saida">−</span>{% endif %}</td>
+          <td class="categoria">{{ l.categoria.nome }}</td>
+          <td class="valor">{{ l.valor|moeda_br }}</td>
         </tr>
         {% empty %}
-        <tr>
-          <td colspan="3" class="empty">
-            Nenhum lançamento ainda
-          </td>
-        </tr>
+        <tr><td colspan="3" class="empty">Nenhum lançamento ainda</td></tr>
         {% endfor %}
       </tbody>
     </table>
@@ -216,8 +134,5 @@
 {% endif %}
 
 <script src="{% static 'core/js/dashboard.js' %}"></script>
-
-
 {% endblock %}
-
 
