@@ -307,7 +307,7 @@ def dashboard(request):
         'valores_categoria': [float(c['total']) for c in categorias],
         'tem_grafico': len(categorias) > 1,
         'lancamentos': lancamentos,
-        "acao_principal": acao_principal,
+        'acao_principal': acao_principal,
         'diagnostico': diagnostico,
         'sucesso': sucesso,
         'simulacao': simulacao,
