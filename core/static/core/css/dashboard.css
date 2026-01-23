@@ -408,26 +408,6 @@ canvas {
   font-size: .85rem;
   color: #94a3b8;
 }
-
-/* =====================
-   HUMOR FINANCEIRO
-===================== */
-.humor-financeiro {
-  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-soft));
-  border-radius: var(--radius);
-  padding: 18px 22px;
-  box-shadow: var(--shadow-soft);
-  color: var(--text-main);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.humor-financeiro span {
-  font-size: 1.2rem;
-}
-
 /* =====================
    TEXTO VISÍVEL
 ===================== */
