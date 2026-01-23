@@ -494,3 +494,25 @@ canvas {
 .ultimos-list li.out strong {
   color: #ef4444;
 }
+
+/* CORREÇÃO DE ALTURA / ALINHAMENTO */
+.insight-card {
+  height: 100%;
+}
+
+.col-lg-8 > .card,
+.col-lg-4 > .card {
+  width: 100%;
+}
+
+/* LISTA NÃO ESTOURAR */
+.ultimos-list {
+  max-height: 100%;
+}
+
+/* ESPAÇAMENTO CONSISTENTE */
+.insight-card .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

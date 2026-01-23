@@ -62,7 +62,12 @@
 
 {% if acao_principal %}
 <div class="row g-4 mb-4">
-  <div class="col-md-6">
+
+      <!-- COLUNA ESQUERDA -->
+  <div class="col-lg-8 d-flex flex-column gap-4">
+
+
+   {% if acao_principal %}
     <div class="card insight-card highlight">
       <div class="card-body">
         <h6 class="mb-2">🎯 Ação prioritária do mês</h6>
@@ -77,9 +82,6 @@
 </div>
 {% endif %}
 
-<!-- ================= INSIGHTS FINANCEIROS ================= -->
-<div class="row g-4 mb-4">
-
   <!-- PERSONALIDADE FINANCEIRA -->
   {% if personalidade %}
   <div class="col-md-6">
@@ -93,9 +95,11 @@
   </div>
   {% endif %}
 
-  <!-- ÚLTIMOS LANÇAMENTOS -->
-  <div class="col-md-3">
-    <div class="card insight-card soft">
+</div>
+
+ <!-- COLUNA DIREITA ULTIMOS LANÇAMENTOS -->
+  <div class="col-lg-4">
+    <div class="card insight-card soft h-100">
       <div class="card-body">
         <h6 class="mb-3">📋 Últimos lançamentos</h6>
 
