@@ -525,3 +525,29 @@ canvas {
   flex-direction: column;
   justify-content: space-between;
 }
+
+/* =====================
+   ESPAÇAMENTO ENTRE BLOCOS
+===================== */
+
+.dashboard-shell section,
+.dashboard-shell .card {
+  margin-bottom: 24px;
+}
+
+/* separação extra entre insights grandes */
+.dashboard-insight,
+.insight-card {
+  margin-bottom: 28px;
+}
+
+/* leitura + projeção não grudarem */
+.insight-card.soft + .insight-card.soft {
+  margin-top: 24px;
+}
+
+/* gráfico respirar do resto */
+#graficoCategoria,
+#graficoLinha {
+  margin-top: 32px;
+}
