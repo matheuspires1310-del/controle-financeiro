@@ -160,7 +160,7 @@ def dashboard(request):
         Lancamento.objects
         .filter(
             user=request.user,
-            tipo__iexact='saida'
+            tipo='S',
         )
         .values('categoria__nome')
         .annotate(total=Sum('valor'))
@@ -178,6 +178,12 @@ def dashboard(request):
             "impacto": round(principal['total'] * PERCENTUAL_ECONOMIA, 2)
         }
     else:
+        acao_principal = {
+            "titulo": "Mapear gastos do mês",
+            "descricao": "Cadastre seus gastos para receber recomendações personalizadas",
+            "impacto": 0
+        }
+
         acao_principal = None
 
     print('ACAO PRINCIPAL:', acao_principal)
