@@ -439,3 +439,18 @@ canvas {
   font-weight: 700;
 }
 
+/* ===== AÇÃO PRIORITÁRIA – FIX ===== */
+.insight-card.highlight {
+  background: linear-gradient(135deg, #0f172a, #020617);
+  border: 1px solid rgba(99,102,241,.35);
+}
+
+.insight-card.highlight h6,
+.insight-card.highlight p,
+.insight-card.highlight span {
+  color: #ffffff !important;
+}
+
+.insight-card.highlight .text-muted {
+  color: #cbd5f5 !important;
+}

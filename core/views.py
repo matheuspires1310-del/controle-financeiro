@@ -150,6 +150,13 @@ def dashboard(request):
         .annotate(total=Sum('valor'))
     )
 
+
+    acao_principal = {
+        "titulo": "Reduzir gastos com cartão",
+        "descricao": "Cortar pequenos excessos recorrentes",
+        "impacto": 8293.01
+    }
+
     # --------------------
     # PERSONALIDADE
     # --------------------
@@ -180,7 +187,7 @@ def dashboard(request):
     else:
         personalidade = "Conservador"
         descricao_personalidade = "Você evita riscos financeiros."
-
+    
     # --------------------
     # GASTOS INVISÍVEIS
     # --------------------
@@ -277,6 +284,7 @@ def dashboard(request):
         'valores_categoria': [float(c['total']) for c in categorias],
         'tem_grafico': len(categorias) > 1,
         'lancamentos': lancamentos,
+        "acao_principal": acao_principal,
         'diagnostico': diagnostico,
         'sucesso': sucesso,
         'simulacao': simulacao,
