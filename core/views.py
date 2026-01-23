@@ -186,15 +186,14 @@ def dashboard(request):
     if total_flexivel > 0:
         economia = (total_flexivel * PERCENTUAL_ECONOMIA).quantize(Decimal("0.01"))
 
-        categorias = ", ".join(
-        sorted({g['categoria__nome'] for g in gastos_flexiveis})
-    )
+        categorias = ", ".join(g['categoria__nome'] for g in gastos_flexiveis)
 
         acao_principal = {
             "titulo": "Reduzir gastos flexíveis",
             "descricao": f"Seus gastos com {categorias} somam R$ {total_flexivel}. Pequenos cortes aqui não afetam sua qualidade de vida.",
             "impacto": economia
         }
+    
     else:
         acao_principal = None
 
