@@ -321,9 +321,11 @@ def dashboard(request):
         'saidas': saidas,
         'saldo': saldo,
         'form': form,
-        'labels_categoria': [c['categoria__nome'] for c in categorias],
-        'valores_categoria': [float(c['total']) for c in categorias],
-        'tem_grafico': len(categorias) > 1,
+
+        'labels_categoria': [g['categoria__nome'] for g in gastos_flexiveis],
+        'valores_categoria': [float(g['total']) for g in gastos_flexiveis],
+        'tem_grafico': len(gastos_flexiveis) > 1,
+
         'lancamentos': lancamentos,
         'acao_principal': acao_principal,
         'diagnostico': diagnostico,
