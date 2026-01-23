@@ -280,3 +280,90 @@ canvas {
     grid-template-columns: 1fr;
   }
 }
+
+/* =========================
+   HERO · LANÇAMENTO
+========================= */
+
+.dashboard-hero {
+  max-width: 900px;
+  margin: 40px auto 32px auto;
+  padding: 24px 28px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(30, 41, 59, 0.85),
+    rgba(15, 23, 42, 0.9)
+  );
+
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.35);
+}
+
+.quick-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Pergunta */
+.hero-label {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+/* Input + botão */
+.hero-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-input input {
+  flex: 1;
+  height: 52px;
+
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+
+  padding: 0 16px;
+  font-size: 1rem;
+  color: #f8fafc;
+}
+
+.hero-input input::placeholder {
+  color: #64748b;
+}
+
+.hero-input input:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56,189,248,.25);
+}
+
+/* Botão */
+.hero-input button {
+  height: 52px;
+  padding: 0 20px;
+
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  border-radius: 12px;
+
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hero-input button:hover {
+  filter: brightness(1.08);
+}
+
+/* Texto de ajuda */
+.hero-hint {
+  font-size: .85rem;
+  color: #94a3b8;
+}
