@@ -157,7 +157,7 @@ def dashboard(request):
     gastos_cartao = Lancamento.objects.filter(
         usuario=request.user,
         tipo='saida',
-        categoria__icontains='cartão'
+        categoria__nome__icontains='cart'
     )
 
     total_cartao = gastos_cartao.aggregate(
