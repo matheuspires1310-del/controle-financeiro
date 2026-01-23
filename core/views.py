@@ -160,12 +160,14 @@ def dashboard(request):
         Lancamento.objects
         .filter(
             user=request.user,
-            tipo='saida'
+            tipo__iexact='saida'
         )
         .values('categoria__nome')
         .annotate(total=Sum('valor'))
         .order_by('-total')
     )
+    print('GASTOS POR CATEGORIA:', list(gastos_por_categoria))  
+
 
     if gastos_por_categoria:
         principal = gastos_por_categoria[0]
@@ -178,7 +180,7 @@ def dashboard(request):
     else:
         acao_principal = None
 
-    print("ACAO PRINCIPAL:", acao_principal)
+    print('ACAO PRINCIPAL:', acao_principal)
 
 
     # --------------------
