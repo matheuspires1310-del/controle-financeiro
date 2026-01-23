@@ -155,7 +155,7 @@ def dashboard(request):
 
 
     gastos_cartao = Lancamento.objects.filter(
-        usuario=request.user,
+        user=request.user,
         tipo='saida',
         categoria__nome__icontains='cart'
     )
@@ -168,10 +168,11 @@ def dashboard(request):
         acao_principal = {
             "titulo": "Reduzir gastos com cartão",
             "descricao": "Cortar pequenos excessos recorrentes",
-            "impacto": round(total_cartao * 0.2, 2)  # 20% de economia estimada
+            "impacto": round(total_cartao * 0.2, 2)
         }
     else:
         acao_principal = None
+
 
 
     # --------------------
