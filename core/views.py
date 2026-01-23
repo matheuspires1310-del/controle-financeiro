@@ -152,39 +152,47 @@ def dashboard(request):
         .values('categoria__nome')
         .annotate(total=Sum('valor'))
     )
+    
+    CATEGORIAS_FLEXIVEIS = [
+        'uber',
+        'ifood',
+        'cerveja',
+        'delivery',
+        'lazer',
+        'streaming',
+        'besteiras'
+    ]
 
 
     PERCENTUAL_ECONOMIA = Decimal('0.2')
 
-    gastos_por_categoria = (
+    gastos_flexiveis = (
         Lancamento.objects
         .filter(
             user=request.user,
             tipo='S',
+            categoria__nome__iregex=r'uber|ifood|cerveja|delivery|lazer|besteira'
         )
         .values('categoria__nome')
         .annotate(total=Sum('valor'))
-        .order_by('-total')
     )
-    print('GASTOS POR CATEGORIA:', list(gastos_por_categoria))  
+
+    total_flexivel = sum([g['total'] for g in gastos_flexiveis if g['total']], Decimal("0"))  
 
 
-    if gastos_por_categoria:
-        principal = gastos_por_categoria[0]
+    if total_flexivel > 0:
+        economia = (total_flexivel * PERCENTUAL_ECONOMIA).quantize(Decimal("0.01"))
+
+        categorias = ", ".join([g['categoria__nome'] for g in gastos_flexiveis])
 
         acao_principal = {
-            "titulo": f"Reduzir gastos com {principal['categoria__nome']}",
-            "descricao": "Pequenos ajustes nessa categoria geram impacto rápido",
-            "impacto": round(principal['total'] * PERCENTUAL_ECONOMIA, 2)
+            "titulo": "Reduzir gastos flexíveis",
+            "descricao": f"Seus gastos com {categorias} somam R$ {total_flexivel}. Pequenos cortes aqui não afetam sua qualidade de vida.",
+            "impacto": economia
         }
     else:
-        acao_principal = {
-            "titulo": "Mapear gastos do mês",
-            "descricao": "Cadastre seus gastos para receber recomendações personalizadas",
-            "impacto": 0
-        }
-
         acao_principal = None
+
 
     print('ACAO PRINCIPAL:', acao_principal)
 
