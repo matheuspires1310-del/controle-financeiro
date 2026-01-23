@@ -34,3 +34,5 @@ webdriver-manager==4.0.2
 websocket-client==1.9.0
 whitenoise==6.11.0
 wsproto==1.2.0
+psycopg[binary]
+psycopg2-binary==2.9.6
