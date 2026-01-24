@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 
 
 urlpatterns = [
-    path("", lambda request: redirect("login")),
+    path("", lambda request: redirect("cadastro")),
     path("dashboard/", views.dashboard, name="dashboard"),
 
     # Categorias
