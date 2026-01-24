@@ -345,7 +345,23 @@ def dashboard(request):
         'personalidade': personalidade,
         'descricao_personalidade': descricao_personalidade,
         'humor': humor,
+        "grafico_labels": grafico_labels,
+        "grafico_valores": grafico_valores,
+        "tem_grafico": len(grafico_labels) > 1,
+
     }
+    
+    grafico = (
+        Lancamento.objects
+        .filter(user=request.user)
+        .annotate(mes=TruncMonth("data"))
+        .values("mes")
+        .annotate(total=Sum("valor"))
+        .order_by("mes")
+    )
+
+    grafico_labels = [g["mes"].strftime("%m/%Y") for g in grafico]
+    grafico_valores = [float(g["total"]) for g in grafico]
 
     return render(request, 'dashboard.html', context)
 

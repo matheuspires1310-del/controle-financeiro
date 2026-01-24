@@ -171,24 +171,20 @@
   <!-- =====================
        GRÁFICO
   ====================== -->
-  {% if tem_grafico %}
-  <section class="dashboard-chart">
-    <header>
-      <h3>📈 Evolução do mês</h3>
-    </header>
-    <div class="chart-wrapper">
-      <canvas id="graficoLinha"></canvas>
-    </div>
-  </section>
-  {% endif %}
+{% if tem_grafico %}
+<section class="dashboard-chart">
+  <h3>📈 Evolução mensal</h3>
+  <canvas id="graficoLinha"></canvas>
+</section>
+{% endif %}
 
-
-{% if grafico_labels %}
+{% if tem_grafico %}
 <script>
-  window.labelsCategoria = {{ grafico_labels|safe }};
-  window.valoresCategoria = {{ grafico_valores|safe }};
+  window.graficoLabels = {{ grafico_labels|safe }};
+  window.graficoValores = {{ grafico_valores|safe }};
 </script>
 {% endif %}
+
 
 
 <script src="{% static 'core/js/dashboard.js' %}"></script>
