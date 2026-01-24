@@ -44,11 +44,21 @@
         </li>
 
     </ul>
+    <span class="navbar-text text-white me-3">
+  👤 {{ request.user.username }}
+</span>
 
-    <span class="text-white">
-        Olá, {{ request.user.username }}
-    </span>
-</nav>
+<form method="post" action="{% url 'logout' %}" class="d-inline">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-outline-danger btn-sm">
+    🚪 Sair
+  </button>
+</form>
+
+<form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit" class="logout-btn">Sair</button>
+</form>
 
 
 

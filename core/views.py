@@ -352,33 +352,36 @@ def editar_lancamento(request, id):
         user=request.user
     )
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = LancamentoForm(request.POST, instance=lancamento)
         if form.is_valid():
             form.save()
-            return redirect('/')
-
+            return redirect("dashboard")
     else:
         form = LancamentoForm(instance=lancamento)
+
+    return render(request, "editar_lancamento.html", {"form": form})
+
 
     return render(request, 'editar_lancamento.html', {
         'form': form,
         'lancamento': lancamento
     })
 
-
 @login_required
 def excluir_lancamento(request, id):
     lancamento = get_object_or_404(
         Lancamento,
         id=id,
-        user=request.user
+        user=request.user  
     )
 
-    if request.method == 'POST':
+    if request.method == "POST":
         lancamento.delete()
+        return redirect("dashboard")
 
-    return redirect('/')
+    return redirect("dashboard")
+
 
 
 @login_required
