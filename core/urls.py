@@ -3,7 +3,7 @@ from . import views
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path("dashboard/", views.dashboard, name="dashboard"),
 
     # Categorias
     path('categorias/', views.lista_categorias, name='lista_categorias'),
