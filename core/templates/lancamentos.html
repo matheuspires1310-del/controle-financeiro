@@ -31,9 +31,16 @@
                 <td class="text-end">R$ {{ l.valor }}</td>
                 <td class="text-end">
                     <a href="{% url 'editar_lancamento' l.id %}" class="btn btn-sm btn-outline-primary">✏️</a>
-                    <a href="{% url 'excluir_lancamento' l.id %}"
-                       class="btn btn-sm btn-outline-danger"
-                       onclick="return confirm('Excluir?')">🗑</a>
+                    <form method="post"
+                    action="{% url 'excluir_lancamento' l.id %}"
+                    style="display:inline;"
+                    onsubmit="return confirm('Excluir?')">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                        🗑
+                    </button>
+                </form>
+
                 </td>
             </tr>
             {% empty %}
