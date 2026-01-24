@@ -55,13 +55,6 @@
   </button>
 </form>
 
-<form method="post" action="{% url 'logout' %}">
-  {% csrf_token %}
-  <button type="submit" class="logout-btn">Sair</button>
-</form>
-
-
-
 {% block content %}{% endblock %}
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
