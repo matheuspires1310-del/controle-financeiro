@@ -322,9 +322,6 @@ def dashboard(request):
     # GRÁFICO
     # ======================
 
-    grafico_labels = []
-    grafico_valores = []
-
     periodo = request.GET.get("periodo", "mes")
 
     if periodo == "semana":
@@ -334,7 +331,7 @@ def dashboard(request):
 
     grafico = (
         Lancamento.objects
-        .filter(user=request.user)
+        .filter(user=request.user, tipo="S")
         .annotate(periodo=agrupador)
         .values("periodo")
         .annotate(total=Sum("valor"))
@@ -347,6 +344,7 @@ def dashboard(request):
         grafico_labels = [g["periodo"].strftime("%m/%Y") for g in grafico]
 
     grafico_valores = [float(g["total"]) for g in grafico]
+
 
 
     # --------------------
@@ -377,7 +375,7 @@ def dashboard(request):
         'humor': humor,
         "grafico_labels": grafico_labels,
         "grafico_valores": grafico_valores,
-        "tem_grafico": len(grafico_labels) > 1,
+        "tem_grafico": bool(grafico_labels),
         "periodo": periodo,
 
     }
