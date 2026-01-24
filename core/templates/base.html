@@ -42,18 +42,20 @@
                 📊 Relatórios
             </a>
         </li>
-
     </ul>
-    <span class="navbar-text text-white me-3">
-  👤 {{ request.user.username }}
-</span>
+  <div class="d-flex align-items-center gap-3">
+    <span class="text-white small">
+      👤 {{ request.user.username }}
+    </span>
 
-<form method="post" action="{% url 'logout' %}" class="d-inline">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-outline-danger btn-sm">
-    🚪 Sair
-  </button>
-</form>
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-outline-danger btn-sm">
+        🚪 Sair
+      </button>
+    </form>
+  </div>
+</nav>
 
 {% block content %}{% endblock %}
 
