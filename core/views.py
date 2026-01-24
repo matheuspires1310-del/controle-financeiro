@@ -318,6 +318,36 @@ def dashboard(request):
         Lancamento.objects.filter(user=request.user)
         .order_by('-data')[:10]
     )
+    # ======================
+    # GRÁFICO
+    # ======================
+
+    grafico_labels = []
+    grafico_valores = []
+
+    periodo = request.GET.get("periodo", "mes")
+
+    if periodo == "semana":
+        agrupador = TruncWeek("data")
+    else:
+        agrupador = TruncMonth("data")
+
+    grafico = (
+        Lancamento.objects
+        .filter(user=request.user)
+        .annotate(periodo=agrupador)
+        .values("periodo")
+        .annotate(total=Sum("valor"))
+        .order_by("periodo")
+    )
+
+    if periodo == "semana":
+        grafico_labels = [g["periodo"].strftime("%d/%m") for g in grafico]
+    else:
+        grafico_labels = [g["periodo"].strftime("%m/%Y") for g in grafico]
+
+    grafico_valores = [float(g["total"]) for g in grafico]
+
 
     # --------------------
     # CONTEXTO
@@ -348,20 +378,9 @@ def dashboard(request):
         "grafico_labels": grafico_labels,
         "grafico_valores": grafico_valores,
         "tem_grafico": len(grafico_labels) > 1,
+        "periodo": periodo,
 
     }
-    
-    grafico = (
-        Lancamento.objects
-        .filter(user=request.user)
-        .annotate(mes=TruncMonth("data"))
-        .values("mes")
-        .annotate(total=Sum("valor"))
-        .order_by("mes")
-    )
-
-    grafico_labels = [g["mes"].strftime("%m/%Y") for g in grafico]
-    grafico_valores = [float(g["total"]) for g in grafico]
 
     return render(request, 'dashboard.html', context)
 
