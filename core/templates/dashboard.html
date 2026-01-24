@@ -190,13 +190,13 @@
   {% endif %}
 
 
-{% if tem_grafico %}
+{% if grafico_labels %}
 <script>
-  window.graficoLabels = {{ grafico_labels|safe }};
-  window.graficoValores = {{ grafico_valores|safe }};
+  window.labelsCategoria = {{ grafico_labels|safe }};
+  window.valoresCategoria = {{ grafico_valores|safe }};
 </script>
-
 {% endif %}
+
 
 <script src="{% static 'core/js/dashboard.js' %}"></script>
 
