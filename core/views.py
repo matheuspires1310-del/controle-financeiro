@@ -14,6 +14,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.db.models.functions import TruncDay, TruncWeek, TruncMonth
+from django.db.models import Sum
+from django.db.models.functions import TruncMonth, TruncWeek
+
 
 
 CATEGORIAS_FLEXIVEIS = [
@@ -28,6 +31,7 @@ CATEGORIAS_FLEXIVEIS = [
 
 @login_required
 def dashboard(request):
+    period = request.GET.get("period", "mes")
 
     # --------------------
     # FORMULÁRIO
@@ -356,14 +360,17 @@ def dashboard(request):
 
     grafico = (
         Lancamento.objects
-        .filter(user=request.user)
+        .filter(user=request.user, tipo='S')
         .annotate(periodo=agrupador)
         .values("periodo")
         .annotate(total=Sum("valor"))
         .order_by("periodo")
     )
 
-    grafico_labels = [g["periodo"].strftime("%d/%m") for g in grafico]
+    if periodo == "semana":
+        grafico_labels = [g["periodo"].strftime("%d/%m") for g in grafico]
+    else:
+        grafico_labels = [g["periodo"].strftime("%m/%Y") for g in grafico]
     grafico_valores = [float(g["total"]) for g in grafico]
 
     # =========================
