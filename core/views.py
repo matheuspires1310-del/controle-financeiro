@@ -31,7 +31,7 @@ CATEGORIAS_FLEXIVEIS = [
 
 @login_required
 def dashboard(request):
-    period = request.GET.get("period", "mes")
+    
 
     # --------------------
     # FORMULÁRIO
@@ -345,42 +345,6 @@ def dashboard(request):
         'personalidade': personalidade,
         'descricao_personalidade': descricao_personalidade,
         'humor': humor,
-    }
-
-
-# =========================
-# GRÁFICO (ADICIONAR AQUI)
-# =========================
-    periodo = request.GET.get("periodo", "mes")
-
-    if periodo == "semana":
-        agrupador = TruncWeek("data")
-    else:
-        agrupador = TruncMonth("data")
-
-    grafico = (
-        Lancamento.objects
-        .filter(user=request.user, tipo='S')
-        .annotate(periodo=agrupador)
-        .values("periodo")
-        .annotate(total=Sum("valor"))
-        .order_by("periodo")
-    )
-
-    if periodo == "semana":
-        grafico_labels = [g["periodo"].strftime("%d/%m") for g in grafico]
-    else:
-        grafico_labels = [g["periodo"].strftime("%m/%Y") for g in grafico]
-    grafico_valores = [float(g["total"]) for g in grafico]
-
-    # =========================
-    # CONTEXT
-    # =========================
-    context = {
-        # tudo que já existe
-        "grafico_labels": grafico_labels,
-        "grafico_valores": grafico_valores,
-        "periodo": periodo,
     }
 
     return render(request, 'dashboard.html', context)
