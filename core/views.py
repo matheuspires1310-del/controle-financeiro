@@ -13,6 +13,8 @@ import re
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.db.models.functions import TruncDay, TruncWeek, TruncMonth
+
 
 CATEGORIAS_FLEXIVEIS = [
         'uber',
@@ -339,6 +341,39 @@ def dashboard(request):
         'personalidade': personalidade,
         'descricao_personalidade': descricao_personalidade,
         'humor': humor,
+    }
+
+
+# =========================
+# GRÁFICO (ADICIONAR AQUI)
+# =========================
+    periodo = request.GET.get("periodo", "mes")
+
+    if periodo == "semana":
+        agrupador = TruncWeek("data")
+    else:
+        agrupador = TruncMonth("data")
+
+    grafico = (
+        Lancamento.objects
+        .filter(user=request.user)
+        .annotate(periodo=agrupador)
+        .values("periodo")
+        .annotate(total=Sum("valor"))
+        .order_by("periodo")
+    )
+
+    grafico_labels = [g["periodo"].strftime("%d/%m") for g in grafico]
+    grafico_valores = [float(g["total"]) for g in grafico]
+
+    # =========================
+    # CONTEXT
+    # =========================
+    context = {
+        # tudo que já existe
+        "grafico_labels": grafico_labels,
+        "grafico_valores": grafico_valores,
+        "periodo": periodo,
     }
 
     return render(request, 'dashboard.html', context)

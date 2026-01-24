@@ -168,6 +168,12 @@
 
 </div>
 <!-- ======================================================== -->
+<form method="get" class="mb-3">
+  <select name="periodo" onchange="this.form.submit()" class="form-select w-auto">
+    <option value="mes" {% if periodo == "mes" %}selected{% endif %}>Mês</option>
+    <option value="semana" {% if periodo == "semana" %}selected{% endif %}>Semana</option>
+  </select>
+</form>
 
   <!-- =====================
        GRÁFICO
@@ -186,9 +192,10 @@
 
 {% if tem_grafico %}
 <script>
-  window.labelsCategoria = {{ labels_categoria|safe }};
-  window.valoresCategoria = {{ valores_categoria|safe }};
+  window.graficoLabels = {{ grafico_labels|safe }};
+  window.graficoValores = {{ grafico_valores|safe }};
 </script>
+
 {% endif %}
 
 <script src="{% static 'core/js/dashboard.js' %}"></script>

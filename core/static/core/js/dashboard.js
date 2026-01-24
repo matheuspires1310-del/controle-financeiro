@@ -5,9 +5,10 @@ document.addEventListener("DOMContentLoaded", () => {
   new Chart(ctx, {
     type: "line",
     data: {
-      labels: window.labelsCategoria,
+      labels: window.graficoLabels,
       datasets: [{
-        data: window.valoresCategoria,
+          data: window.graficoValores,
+
         borderColor: "#3b82f6",
         backgroundColor: "rgba(59,130,246,.15)",
         tension: 0.45,
